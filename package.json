@@ -1,0 +1,48 @@
+{
+   "name": "puppeteer-browser-ready",
+   "version": "0.0.0",
+   "description": "Simple utility to go to a URL and wait for the HTTP response",
+   "license": "MIT",
+   "main": "puppeteer-browser-ready.js",
+   "repository": "github:center-key/puppeteer-browser-ready",
+   "homepage": "https://github.com/center-key/puppeteer-browser-ready",
+   "bugs": "https://github.com/center-key/puppeteer-browser-ready/issues",
+   "docs": "https://github.com/center-key/puppeteer-browser-ready#readme",
+   "author": "Center Key (https://centerkey.com)",
+   "keywords": [
+      "browser",
+      "http",
+      "javascript",
+      "mocha",
+      "puppeteer",
+      "ready",
+      "response",
+      "url"
+   ],
+   "jshintConfig": {
+      "esversion": 9,
+      "strict": "implied",
+      "eqeqeq": true,
+      "latedef": true,
+      "nonbsp": true,
+      "singleGroups": true,
+      "undef": true,
+      "unused": true,
+      "mocha": true,
+      "node": true
+   },
+   "scripts": {
+      "pretest": "jshint *.js spec/*.js",
+      "test": "mocha spec/*-spec.js --timeout 5000"
+   },
+   "dependencies": {},
+   "peerDependencies": {
+      "puppeteer": "^5"
+   },
+   "devDependencies": {
+      "cheerio": "~1.0.0-rc.3",
+      "jshint": "~2.12",
+      "mocha": "~8.2",
+      "puppeteer": "~5.5"
+   }
+}
