@@ -1,6 +1,8 @@
 # Downloaded and generated files
 /node_modules/
 /package-lock.json
+/hello-world/node_modules/
+/hello-world/package-lock.json
 
 # Extraneous system files
 .DS_Store

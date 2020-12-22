@@ -25,6 +25,39 @@ const browserReady = require('puppeteer-browser-ready');
 
 ## B) Usage
 ```javascript
+const puppeteer =    require('puppeteer');
+const browserReady = require('puppeteer-browser-ready');
+const handleResponse = (web) => {
+   console.log('web fields:', Object.keys(web).join(', '));   
+   console.log('The HTML from', web.url, 'is', web.html.length, 'characters long.');
+   web.browser.close();
+   };
+puppeteer.launch()
+   .then(browserReady(url))
+   .then(handleResponse);
+```
+Output:
+```
+web fields: browser, page, response, url, status, statusText, html
+The HTML from https://pretty-print-json.js.org/ is 7556 characters long.
+```
+
+The `browserReady()` function takes a Puppeteer **Browser** object and returns a JavaScript
+**Promise** that resolves with a **Web** object:
+```typescript
+type Web = {
+   browser:    Browser,
+   page:       Page,
+   response:   HTTPResponse,
+   url         string,
+   status:     number,
+   statusText: string,
+   html:       string,
+   };
+```
+
+## C) Mocha and cheerio example
+```javascript
 // Imports
 const assert =       require('assert');
 const browserReady = require('puppeteer-browser-ready');
