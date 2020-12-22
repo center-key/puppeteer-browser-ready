@@ -14,11 +14,11 @@ It's primarily intended for use within [Mocha](https://mochajs.org) tests and is
 for passing HTML to [cheerio](https://cheerio.js.org).
 
 ## A) Setup
-Install package:
+**Install package:**
 ```shell
 $ npm install --save-dev puppeteer-browser-ready
 ```
-Import package:
+**Import package:**
 ```javascript
 const browserReady = require('puppeteer-browser-ready');
 ```
@@ -36,7 +36,7 @@ puppeteer.launch()
    .then(browserReady(url))
    .then(handleResponse);
 ```
-Output:
+**Output:**
 ```
 web fields: browser, page, response, url, status, statusText, html
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long.
@@ -111,7 +111,7 @@ describe('The document content', () => {
 
    });
 ```
-Above mocha test will output:
+**Output from above Mocha test:**
 ```
   The web page
     ✓ has the correct URL -> https://pretty-print-json.js.org/

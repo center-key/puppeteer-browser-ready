@@ -1,6 +1,6 @@
 {
    "name": "puppeteer-browser-ready",
-   "version": "0.0.0",
+   "version": "0.0.1",
    "description": "Simple utility to go to a URL and wait for the HTTP response",
    "license": "MIT",
    "main": "puppeteer-browser-ready.js",
@@ -40,7 +40,7 @@
       "puppeteer": "^5"
    },
    "devDependencies": {
-      "cheerio": "~1.0.0-rc.3",
+      "cheerio": "^1.0.0-rc.5",
       "jshint": "~2.12",
       "mocha": "~8.2",
       "puppeteer": "~5.5"

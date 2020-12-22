@@ -4,7 +4,9 @@
    "description": "Bare-bones example of using puppeteer-browser-ready",
    "license": "MIT",
    "main": "index.js",
-   "jshintConfig": { "esversion": 9 },
+   "jshintConfig": {
+      "esversion": 9
+   },
    "scripts": {
       "test": "jshint *.js",
       "start": "node index"
