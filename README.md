@@ -30,11 +30,12 @@ const browserReady = require('puppeteer-browser-ready');
 const handleResponse = (web) => {
    console.log('web fields:', Object.keys(web).join(', '));   
    console.log('The HTML from', web.url, 'is', web.html.length, 'characters long.');
-   web.browser.close();
+   return web;
    };
 puppeteer.launch()
-   .then(browserReady(url))
-   .then(handleResponse);
+   .then(browserReady.goto(url))
+   .then(handleResponse)
+   .then(browserReady.close);
 ```
 **Output:**
 ```
@@ -42,8 +43,8 @@ web fields: browser, page, response, url, status, statusText, html
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long.
 ```
 
-The `browserReady()` function takes a Puppeteer **Browser** object and returns a JavaScript
-**Promise** that resolves with a **Web** object:
+The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
+returns a JavaScript **Promise** that resolves with a **Web** object:
 ```typescript
 type Web = {
    browser:    Browser,
@@ -69,9 +70,9 @@ const pageUrl = 'https://pretty-print-json.js.org/';
 const web = {};  //fields: browser, page, response, url, status, statusText, html
 let $;
 const loadWebPage = () => puppeteer.launch()
-   .then(browserReady(pageUrl, web))
+   .then(browserReady.goto(pageUrl, web))
    .then(() => $ = cheerio.load(web.html));
-const closeWebPage = () => Promise.resolve(web.browser.close());
+const closeWebPage = () => browserReady.close(web);
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {

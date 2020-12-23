@@ -15,8 +15,9 @@ const handleResponse = (web) => {
    console.log('Hello, World!');
    console.log('web fields:', Object.keys(web).join(', '));
    console.log('The HTML from', web.url, 'is', web.html.length, 'characters long.');
-   web.browser.close();
+   return web;
    };
 puppeteer.launch()
-   .then(browserReady('https://pretty-print-json.js.org/'))
-   .then(handleResponse);
+   .then(browserReady.goto('https://pretty-print-json.js.org/'))
+   .then(handleResponse)
+   .then(browserReady.close);

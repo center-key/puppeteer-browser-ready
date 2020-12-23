@@ -11,9 +11,9 @@ const pageUrl = 'https://pretty-print-json.js.org/';
 const web = {};  //fields: browser, page, response, url, status, statusText, html
 let $;
 const loadWebPage = () => puppeteer.launch()
-   .then(browserReady(pageUrl, web))
+   .then(browserReady.goto(pageUrl, web))
    .then(() => $ = cheerio.load(web.html));
-const closeWebPage = () => Promise.resolve(web.browser.close());
+const closeWebPage = () => browserReady.close(web);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
