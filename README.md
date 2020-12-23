@@ -24,6 +24,11 @@ const browserReady = require('puppeteer-browser-ready');
 ```
 
 ## B) Usage
+Use the `browserReady.goto()` function to tell Puppeteer which page to open.  The **Promise** will
+resolve with a **Web** object containing a `html` field.  Pass the **Web** object to the
+`browserReady.close()` function to disconnect the page.
+
+**Example:**
 ```javascript
 const puppeteer =    require('puppeteer');
 const browserReady = require('puppeteer-browser-ready');
@@ -50,7 +55,7 @@ type Web = {
    browser:    Browser,
    page:       Page,
    response:   HTTPResponse,
-   url         string,
+   url:        string,
    status:     number,
    statusText: string,
    html:       string,
