@@ -3,6 +3,7 @@
    "version": "1.0.0",
    "description": "Bare-bones example of using puppeteer-browser-ready",
    "license": "MIT",
+   "private": true,
    "main": "index.js",
    "jshintConfig": {
       "esversion": 9
