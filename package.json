@@ -33,14 +33,15 @@
    },
    "scripts": {
       "pretest": "jshint *.js spec/*.js",
-      "test": "mocha spec/*-spec.js --timeout 5000"
+      "test": "mocha spec/*-spec.js"
    },
-   "dependencies": {},
+   "dependencies": {
+      "cheerio": "^1.0.0-rc.5"
+   },
    "peerDependencies": {
       "puppeteer": "^5"
    },
    "devDependencies": {
-      "cheerio": "^1.0.0-rc.5",
       "jshint": "~2.12",
       "mocha": "~8.2",
       "puppeteer": "~5.5"

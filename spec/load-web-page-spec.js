@@ -2,23 +2,24 @@
 
 // Imports
 const assert =       require('assert');
-const cheerio =      require('cheerio');
 const puppeteer =    require('puppeteer');
 const browserReady = require('../puppeteer-browser-ready');
 
 // Setup
 const pageUrl = 'https://pretty-print-json.js.org/';
-const web = {};  //fields: browser, page, response, url, status, statusText, html
+const web = {};  //fields: browser, page, response, url, status, statusText, html, $
 let $;
 const loadWebPage = () => puppeteer.launch()
-   .then(browserReady.goto(pageUrl, web))
-   .then(() => $ = cheerio.load(web.html));
-const closeWebPage = () => browserReady.close(web);
+   .then(browserReady.goto(pageUrl, { web: web }))
+   .then(() => $ = web.$)
+   .catch(error => console.error(error));
+const closeWebPage = () => browserReady.close(web)
+   .catch(error => console.error(error));
+before(loadWebPage);
+after(closeWebPage);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
-   before(loadWebPage);
-   after(closeWebPage);
 
    it('has the correct URL -> ' + pageUrl, () => {
       const actual =   { url: web.url };
@@ -40,8 +41,6 @@ describe('The web page', () => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 describe('The document content', () => {
-   before(loadWebPage);
-   after(closeWebPage);
 
    it('has a 🚀 traveling to 🪐!', () => {
       const actual =   { '🚀': !!web.html.match(/🚀/g), '🪐': !!web.html.match(/🪐/g) };
