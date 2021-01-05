@@ -4,6 +4,7 @@
    "description": "Bare-bones example of using puppeteer-browser-ready",
    "license": "MIT",
    "private": true,
+   "type": "module",
    "main": "index.js",
    "jshintConfig": {
       "esversion": 9
@@ -12,10 +13,10 @@
       "test": "jshint *.js",
       "start": "node index"
    },
-   "dependencies": {},
-   "devDependencies": {
+   "dependencies": {
       "jshint": "~2.12",
       "puppeteer": "~5.5",
       "puppeteer-browser-ready": "~0.0"
-   }
+   },
+   "devDependencies": {}
 }

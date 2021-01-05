@@ -1,11 +1,11 @@
 // puppeteer-browser-ready ~ github.com/center-key/puppeteer-browser-ready ~ MIT License
 
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
 
 // type Web = {
 //    browser:    Puppeteer.Browser,
 //    page:       Puppeteer.Page,
-//    response:   Puppeteer.Response | null,
+//    response:   HTTPResponse | null,
 //    url         string,
 //    status:     number,
 //    statusText: string,
@@ -13,7 +13,7 @@ const cheerio = require('cheerio');
 //    $:          Cheerio (like JQuery) | null,
 //    };
 
-const puppeteerBrowserReady = {
+const browserReady = {
    goto(pageUrl, options) {
       const defaults = { web: {}, addCheerio: true };
       const settings = { ...defaults, ...options };
@@ -35,4 +35,4 @@ const puppeteerBrowserReady = {
       },
    };
 
-module.exports = puppeteerBrowserReady;  //node module loading system (CommonJS)
+export { browserReady };

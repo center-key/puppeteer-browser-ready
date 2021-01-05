@@ -1,9 +1,9 @@
 // Mocha Specification Cases
 
 // Imports
-const assert =       require('assert');
-const puppeteer =    require('puppeteer');
-const browserReady = require('../puppeteer-browser-ready');
+import assert from 'assert';
+import puppeteer from 'puppeteer';
+import { browserReady } from '../puppeteer-browser-ready.js';
 
 // Setup
 const pageUrl = 'https://pretty-print-json.js.org/';
@@ -18,7 +18,7 @@ const closeWebPage = () => browserReady.close(web)
 before(loadWebPage);
 after(closeWebPage);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
 
    it('has the correct URL -> ' + pageUrl, () => {
@@ -39,7 +39,7 @@ describe('The web page', () => {
 
    });
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 describe('The document content', () => {
 
    it('has a 🚀 traveling to 🪐!', () => {
