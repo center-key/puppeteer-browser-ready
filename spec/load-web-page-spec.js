@@ -3,14 +3,14 @@
 // Imports
 import assert from 'assert';
 import puppeteer from 'puppeteer';
-import { browserReady } from '../puppeteer-browser-ready.js';
+import { browserReady } from '../dist/puppeteer-browser-ready.js';
 
 // Setup
-const pageUrl = 'https://pretty-print-json.js.org/';
-const web = {};  //fields: browser, page, response, url, status, statusText, html, $
+const url = 'https://pretty-print-json.js.org/';
+const web = {};  //fields: browser, page, response, html, $
 let $;
 const loadWebPage = () => puppeteer.launch()
-   .then(browserReady.goto(pageUrl, { web: web }))
+   .then(browserReady.goto(url, { web: web }))
    .then(() => $ = web.$)
    .catch(error => console.error(error));
 const closeWebPage = () => browserReady.close(web)
@@ -21,9 +21,9 @@ after(closeWebPage);
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
 
-   it('has the correct URL -> ' + pageUrl, () => {
-      const actual =   { url: web.url };
-      const expected = { url: pageUrl };
+   it('has the correct URL -> ' + url, () => {
+      const actual =   { url: web.response.url() };
+      const expected = { url: url };
       assert.deepStrictEqual(actual, expected);
       });
 

@@ -4,7 +4,12 @@
    "description": "Simple utility to go to a URL and wait for the HTTP response",
    "license": "MIT",
    "type": "module",
-   "main": "puppeteer-browser-ready.js",
+   "main": "dist/puppeteer-browser-ready.umd.js",
+   "module": "dist/puppeteer-browser-ready.js",
+   "types": "dist/.d.ts",
+   "files": [
+      "dist"
+   ],
    "repository": "github:center-key/puppeteer-browser-ready",
    "homepage": "https://github.com/center-key/puppeteer-browser-ready",
    "bugs": "https://github.com/center-key/puppeteer-browser-ready/issues",
@@ -33,8 +38,13 @@
       "node": true
    },
    "scripts": {
-      "pretest": "jshint *.js spec/*.js",
-      "test": "mocha spec/*-spec.js"
+      "clean": "shx rm -rf build dist; mkdir dist",
+      "postclean": "tsc --version && npm run build-esm && npm run build-dts && npm run build-umd",
+      "build-esm": "tsc --project . && shx cp build/*.js dist/",
+      "build-dts": "name=$(basename $PWD) && shx head -n 1 build/*.js | cat - build/*.d.ts > dist/$name.d.ts",
+      "build-umd": "name=$(basename $PWD) && tsc --project . --module UMD --outDir build/umd && shx cp build/umd/*.js dist/$name.umd.js",
+      "pretest": "jshint spec/*.js && npm run clean",
+      "test": "mocha spec/*-spec.js --timeout 5000"
    },
    "dependencies": {
       "cheerio": "^1.0.0-rc.5"
@@ -43,8 +53,11 @@
       "puppeteer": "^5"
    },
    "devDependencies": {
+      "@types/puppeteer": "~5.4",
       "jshint": "~2.12",
       "mocha": "~8.2",
-      "puppeteer": "~5.5"
+      "puppeteer": "~5.5",
+      "shx": "~0.3",
+      "typescript": "~4.1"
    }
 }

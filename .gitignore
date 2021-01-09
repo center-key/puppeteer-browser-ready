@@ -1,6 +1,7 @@
 # Downloaded and generated files
 /node_modules/
 /package-lock.json
+/build/
 /hello-world/node_modules/
 /hello-world/package-lock.json
 

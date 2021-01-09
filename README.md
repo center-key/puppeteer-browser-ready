@@ -49,7 +49,7 @@ puppeteer.launch()
 ```
 **Output:**
 ```
-web fields: browser, page, response, url, status, statusText, html, $
+web fields: browser, page, response, html, $
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long and contains 6 <p> tags.
 ```
 
@@ -60,9 +60,6 @@ type Web = {
    browser:    Puppeteer.Browser,
    page:       Puppeteer.Page,
    response:   HTTPResponse | null,
-   url         string,
-   status:     number,
-   statusText: string,
    html:       string,
    $:          Cheerio (like JQuery) | null,
    };
@@ -78,11 +75,11 @@ import puppeteer from 'puppeteer';
 import { browserReady } from 'puppeteer-browser-ready';
 
 // Setup
-const pageUrl = 'https://pretty-print-json.js.org/';
+const url = 'https://pretty-print-json.js.org/';
 const web = {};  //fields: browser, page, response, url, status, statusText, html, $
-let $;
+let $;  //just for convenience... you could also use: web.$
 const loadWebPage = () => puppeteer.launch()
-   .then(browserReady.goto(pageUrl, { web: web }))
+   .then(browserReady.goto(url, { web: web }))
    .then(() => $ = web.$)
    .catch(error => console.error(error));
 const closeWebPage = () => browserReady.close(web)
@@ -93,14 +90,14 @@ after(closeWebPage);
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
 
-   it('has the correct URL -> ' + pageUrl, () => {
-      const actual =   { url: web.url };
-      const expected = { url: pageUrl };
+   it('has the correct URL -> ' + url, () => {
+      const actual =   { url: web.response.url() };
+      const expected = { url: url };
       assert.deepStrictEqual(actual, expected);
       });
 
    it('has exactly one header, main, and footer', () => {
-      const actual =   {
+      const actual = {
          header: $('body >header').length,
          main:   $('body >main').length,
          footer: $('body >footer').length,
