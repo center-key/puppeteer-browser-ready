@@ -8,7 +8,7 @@ type BrowserReadyWeb = {
    page:     Page,
    response: Response | null,
    html:     string,
-   $:        any | null,
+   $:        cheerio.Root | null,
    };
 
 type BrowserReadyOptions = {

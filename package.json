@@ -53,6 +53,7 @@
       "puppeteer": "^5"
    },
    "devDependencies": {
+      "@types/cheerio": "~0.22",
       "@types/puppeteer": "~5.4",
       "jshint": "~2.12",
       "mocha": "~8.2",
