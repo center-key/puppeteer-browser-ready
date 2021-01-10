@@ -17,14 +17,14 @@ type BrowserReadyOptions = {
    };
 
 const browserReady = {
-   goto(url: string, options?: BrowserReadyOptions) {
+   goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<BrowserReadyWeb> {
       const defaults = { web: {}, addCheerio: true };
       const settings = { ...defaults, ...options };
-      return async (browser: Browser) => {
-         const page =       await browser.newPage();
-         const response =   await page.goto(url);
-         const html =       response && await response.text();
-         const $ =          html && settings.addCheerio ? cheerio.load(html) : null;
+      return async (browser: Browser): Promise<BrowserReadyWeb> => {
+         const page =     await browser.newPage();
+         const response = await page.goto(url);
+         const html =     response && await response.text();
+         const $ =        html && settings.addCheerio ? cheerio.load(html) : null;
          return <BrowserReadyWeb>Object.assign(settings.web, { browser, page, response, html, $ });
          };
       },

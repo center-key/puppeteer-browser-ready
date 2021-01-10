@@ -37,13 +37,29 @@
       "mocha": true,
       "node": true
    },
+   "eslintConfig": {
+      "ignorePatterns": [
+         "build",
+         "dist",
+         "node_modules"
+      ],
+      "root": true,
+      "parser": "@typescript-eslint/parser",
+      "plugins": [
+         "@typescript-eslint"
+      ],
+      "extends": [
+         "eslint:recommended",
+         "plugin:@typescript-eslint/recommended"
+      ]
+   },
    "scripts": {
       "clean": "shx rm -rf build dist; mkdir dist",
       "postclean": "tsc --version && npm run build-esm && npm run build-dts && npm run build-umd",
       "build-esm": "tsc --project . && shx cp build/*.js dist/",
       "build-dts": "name=$(basename $PWD) && shx head -n 1 build/*.js | cat - build/*.d.ts > dist/$name.d.ts",
       "build-umd": "name=$(basename $PWD) && tsc --project . --module UMD --outDir build/umd && shx cp build/umd/*.js dist/$name.umd.js",
-      "pretest": "jshint spec/*.js && npm run clean",
+      "pretest": "jshint spec/*.js && eslint --max-warnings 0 . --ext .ts && npm run clean",
       "test": "mocha spec/*-spec.js --timeout 5000"
    },
    "dependencies": {
@@ -55,6 +71,9 @@
    "devDependencies": {
       "@types/cheerio": "~0.22",
       "@types/puppeteer": "~5.4",
+      "@typescript-eslint/eslint-plugin": "~4.12",
+      "@typescript-eslint/parser": "~4.12",
+      "eslint": "~7.17",
       "jshint": "~2.12",
       "mocha": "~8.2",
       "puppeteer": "~5.5",
