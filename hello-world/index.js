@@ -15,7 +15,7 @@ import { browserReady } from 'puppeteer-browser-ready';
 const handleResponse = (web) => {
    console.log('Hello, World!');
    console.log('web fields:', Object.keys(web).join(', '));
-   console.log(`The HTML from ${web.url} is ${web.html.length} characters`,
+   console.log(`The HTML from ${web.response.url()} is ${web.html.length} characters`,
       `long and contains ${web.$('p').length} <p> tags.`);
    return web;
    };
