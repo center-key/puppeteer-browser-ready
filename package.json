@@ -21,6 +21,7 @@
       "javascript",
       "mocha",
       "puppeteer",
+      "puppeteer-browser-ready",
       "ready",
       "response",
       "url"
@@ -71,8 +72,8 @@
    "devDependencies": {
       "@types/cheerio": "~0.22",
       "@types/puppeteer": "~5.4",
-      "@typescript-eslint/eslint-plugin": "~4.13",
-      "@typescript-eslint/parser": "~4.13",
+      "@typescript-eslint/eslint-plugin": "~4.14",
+      "@typescript-eslint/parser": "~4.14",
       "eslint": "~7.18",
       "jshint": "~2.12",
       "mocha": "~8.2",
