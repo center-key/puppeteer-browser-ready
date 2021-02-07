@@ -1,7 +1,8 @@
 // puppeteer-browser-ready ~ github.com/center-key/puppeteer-browser-ready ~ MIT License
 
 import cheerio from 'cheerio';
-import { Browser, Page } from 'puppeteer';
+import { Browser } from 'puppeteer/lib/cjs/puppeteer/common/Browser';
+import { Page } from 'puppeteer/lib/cjs/puppeteer/common/Page';
 
 type BrowserReadyWeb = {
    browser:  Browser,
