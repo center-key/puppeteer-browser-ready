@@ -7,7 +7,7 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
-const web = {};  //fields: browser, page, response, html, $
+const web = {};  //fields: browser, page, response, title, html, $
 let $;
 const loadWebPage = () => puppeteer.launch()
    .then(browserReady.goto(url, { web: web }))
@@ -27,8 +27,14 @@ describe('The web page', () => {
       assert.deepStrictEqual(actual, expected);
       });
 
+   it('title starts with "Pretty-Print JSON"', () => {
+      const actual =   { title: web.title.substring(0, 'Pretty-Print JSON'.length) };
+      const expected = { title: 'Pretty-Print JSON' };
+      assert.deepStrictEqual(actual, expected);
+      });
+
    it('has exactly one header, main, and footer', () => {
-      const actual =   {
+      const actual = {
          header: $('body >header').length,
          main:   $('body >main').length,
          footer: $('body >footer').length,

@@ -27,8 +27,8 @@ import { browserReady } from 'puppeteer-browser-ready';
 
 ## B) Usage
 Use the `browserReady.goto()` function to tell Puppeteer which page to open.  The **Promise** will
-resolve with a **Web** object containing a `html` field.  Pass the **Web** object to the
-`browserReady.close()` function to disconnect the page.
+resolve with a **Web** object containing a `title` field and a `html` field.  Pass the **Web**
+object to the `browserReady.close()` function to disconnect the page.
 
 **Example:**
 ```javascript
@@ -49,7 +49,7 @@ puppeteer.launch()
 ```
 **Output:**
 ```
-web fields: browser, page, response, html, $
+web fields: browser, page, response, title, html, $
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long and contains 6 <p> tags.
 ```
 
@@ -60,6 +60,7 @@ type Web = {
    browser:    Puppeteer.Browser,
    page:       Puppeteer.Page,
    response:   HTTPResponse | null,
+   title:      string,
    html:       string,
    $:          cheerio.Root (like JQuery) | null,
    };
@@ -76,7 +77,7 @@ import { browserReady } from 'puppeteer-browser-ready';
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
-const web = {};  //fields: browser, page, response, url, status, statusText, html, $
+const web = {};  //fields: browser, page, response, url, status, statusText, title, html, $
 let $;  //just for convenience... you could also use: web.$
 const loadWebPage = () => puppeteer.launch()
    .then(browserReady.goto(url, { web: web }))
