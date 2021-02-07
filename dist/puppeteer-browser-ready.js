@@ -7,9 +7,10 @@ const browserReady = {
         return async (browser) => {
             const page = await browser.newPage();
             const response = await page.goto(url);
+            const title = response && await page.title();
             const html = response && await response.text();
             const $ = html && settings.addCheerio ? cheerio.load(html) : null;
-            return Object.assign(settings.web, { browser, page, response, html, $ });
+            return Object.assign(settings.web, { browser, page, response, title, html, $ });
         };
     },
     async close(web) {
