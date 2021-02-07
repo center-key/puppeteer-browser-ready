@@ -7,6 +7,7 @@ _Simple utility to go to a URL and wait for the HTTP response_
 [![npm](https://img.shields.io/npm/v/puppeteer-browser-ready.svg)](https://www.npmjs.com/package/puppeteer-browser-ready)
 [![Vulnerabilities](https://snyk.io/test/github/center-key/puppeteer-browser-ready/badge.svg)](https://snyk.io/test/github/center-key/puppeteer-browser-ready)
 [![Build](https://travis-ci.com/center-key/puppeteer-browser-ready.svg)](https://travis-ci.com/center-key/puppeteer-browser-ready)
+[![Build](https://github.com/center-key/puppeteer-browser-ready/workflows/build/badge.svg)](https://github.com/center-key/puppeteer-browser-ready/actions?query=workflow%3Abuild)
 
 **puppeteer-browser-ready** is a convenient helper utility to reduce the amount of boilerplate
 code needed to tell Puppeteer to visit a web page and and retrieve the HTML.&nbsp;
@@ -15,11 +16,11 @@ In addition to the raw HTML, you get a [cheerio](https://cheerio.js.org) referen
 immediately run queries on the DOM.
 
 ## A) Setup
-**Install package:**
+**Install packages:**
 ```shell
 $ npm install --save-dev puppeteer puppeteer-browser-ready
 ```
-**Import package:**
+**Import packages:**
 ```javascript
 import puppeteer from 'puppeteer';
 import { browserReady } from 'puppeteer-browser-ready';
@@ -49,6 +50,7 @@ puppeteer.launch()
 ```
 **Output:**
 ```
+Hello, World!
 web fields: browser, page, response, title, html, $
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long and contains 6 <p> tags.
 ```
