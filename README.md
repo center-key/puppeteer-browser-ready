@@ -17,7 +17,7 @@ immediately run queries on the DOM.
 ## A) Setup
 **Install package:**
 ```shell
-$ npm install --save-dev puppeteer-browser-ready
+$ npm install --save-dev puppeteer puppeteer-browser-ready
 ```
 **Import package:**
 ```javascript
