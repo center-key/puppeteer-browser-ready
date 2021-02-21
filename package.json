@@ -71,12 +71,12 @@
    },
    "devDependencies": {
       "@types/cheerio": "~0.22",
-      "@typescript-eslint/eslint-plugin": "~4.14",
-      "@typescript-eslint/parser": "~4.14",
-      "eslint": "~7.19",
+      "@typescript-eslint/eslint-plugin": "~4.15",
+      "@typescript-eslint/parser": "~4.15",
+      "eslint": "~7.20",
       "jshint": "~2.12",
-      "mocha": "~8.2",
-      "puppeteer": "~7.0",
+      "mocha": "~8.3",
+      "puppeteer": "~7.1",
       "rimraf": "~3.0",
       "shx": "~0.3",
       "typescript": "~4.1"
