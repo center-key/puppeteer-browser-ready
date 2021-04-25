@@ -83,6 +83,8 @@ runSpec() {
 helloWorld() {
    cd $projectHome/hello-world
    echo "hello-world:"
+   grep version ../package.json | head -1     
+   grep puppeteer-browser-ready package.json | grep "~"
    npm install --no-fund
    npm update
    npm outdated
