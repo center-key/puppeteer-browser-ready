@@ -64,21 +64,21 @@
       "test": "     mocha spec/*-spec.js --timeout 5000"
    },
    "dependencies": {
-      "cheerio": "^1.0.0-rc.6"
+      "cheerio": "~1.0.0-rc.9"
    },
    "peerDependencies": {
-      "puppeteer": "^5 || ^6 || ^7 || ^8 || ^9"
+      "puppeteer": "^5 || ^6 || ^7 || ^8 || ^9 || ^10"
    },
    "devDependencies": {
       "@types/cheerio": "~0.22",
-      "@typescript-eslint/eslint-plugin": "~4.22",
-      "@typescript-eslint/parser": "~4.22",
-      "eslint": "~7.25",
-      "jshint": "~2.12",
-      "mocha": "~8.3",
-      "puppeteer": "~9.0",
+      "@typescript-eslint/eslint-plugin": "~4.26",
+      "@typescript-eslint/parser": "~4.26",
+      "eslint": "~7.28",
+      "jshint": "~2.13",
+      "mocha": "~8.4",
+      "puppeteer": "~10.0",
       "rimraf": "~3.0",
       "shx": "~0.3",
-      "typescript": "~4.2"
+      "typescript": "~4.3"
    }
 }

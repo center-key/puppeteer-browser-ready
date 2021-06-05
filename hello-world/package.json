@@ -14,8 +14,8 @@
       "start": "node index"
    },
    "dependencies": {
-      "jshint": "~2.12",
-      "puppeteer": "~9.0",
+      "jshint": "~2.13",
+      "puppeteer": "~10.0",
       "puppeteer-browser-ready": "~0.2"
    },
    "devDependencies": {}
