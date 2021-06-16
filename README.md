@@ -3,10 +3,9 @@
 
 _Simple utility to go to a URL and wait for the HTTP response_
 
-[![License:MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/center-key/puppeteer-browser-ready/blob/master/LICENSE.txt)
+[![License:MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/center-key/puppeteer-browser-ready/blob/main/LICENSE.txt)
 [![npm](https://img.shields.io/npm/v/puppeteer-browser-ready.svg)](https://www.npmjs.com/package/puppeteer-browser-ready)
 [![Vulnerabilities](https://snyk.io/test/github/center-key/puppeteer-browser-ready/badge.svg)](https://snyk.io/test/github/center-key/puppeteer-browser-ready)
-[![Build](https://travis-ci.com/center-key/puppeteer-browser-ready.svg)](https://travis-ci.com/center-key/puppeteer-browser-ready)
 [![Build](https://github.com/center-key/puppeteer-browser-ready/workflows/build/badge.svg)](https://github.com/center-key/puppeteer-browser-ready/actions?query=workflow%3Abuild)
 
 **puppeteer-browser-ready** is a convenient helper utility to reduce the amount of boilerplate
@@ -68,7 +67,7 @@ type Web = {
    };
 ```
 
-## C) Mocha and cheerio example
+## C) Mocha and Cheerio Example
 ```javascript
 // Mocha Specification Cases
 
