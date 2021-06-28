@@ -64,7 +64,7 @@
       "build-dts": "name=$(basename $PWD) && shx head -n 1 build/*.js | cat - build/*.d.ts > dist/$name.d.ts",
       "build-umd": "name=$(basename $PWD) && tsc --project . --module UMD --outDir build/umd && shx cp build/umd/*.js dist/$name.umd.cjs",
       "pretest": "  jshint spec/*.js && eslint --max-warnings 0 . --ext .ts && npm run clean",
-      "test": "     mocha spec/*-spec.js --timeout 5000"
+      "test": "     mocha spec/*.spec.js --timeout 5000"
    },
    "dependencies": {
       "cheerio": "~1.0.0-rc.10"
@@ -74,9 +74,10 @@
    },
    "devDependencies": {
       "@types/cheerio": "~0.22",
-      "@typescript-eslint/eslint-plugin": "~4.27",
-      "@typescript-eslint/parser": "~4.27",
-      "eslint": "~7.28",
+      "@typescript-eslint/eslint-plugin": "~4.28",
+      "@typescript-eslint/parser": "~4.28",
+      "assert-deep-strict-equal": "~0.0",
+      "eslint": "~7.29",
       "jshint": "~2.13",
       "mocha": "~9.0",
       "puppeteer": "~10.0",
