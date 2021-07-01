@@ -4,12 +4,19 @@
    "description": "Simple utility to go to a URL and wait for the HTTP response (written in TypeScript)",
    "license": "MIT",
    "type": "module",
-   "main": "dist/puppeteer-browser-ready.umd.cjs",
    "module": "dist/puppeteer-browser-ready.js",
+   "main": "dist/puppeteer-browser-ready.umd.cjs",
    "types": "dist/puppeteer-browser-ready.d.ts",
    "files": [
       "dist"
    ],
+   "exports": {
+      ".": {
+         "import": "./dist/puppeteer-browser-ready.js",
+         "require": "./dist/puppeteer-browser-ready.umd.cjs"
+      },
+      "./": "./dist/"
+   },
    "repository": "github:center-key/puppeteer-browser-ready",
    "homepage": "https://github.com/center-key/puppeteer-browser-ready",
    "bugs": "https://github.com/center-key/puppeteer-browser-ready/issues",
@@ -80,7 +87,7 @@
       "eslint": "~7.29",
       "jshint": "~2.13",
       "mocha": "~9.0",
-      "puppeteer": "~10.0",
+      "puppeteer": "~10.1",
       "rimraf": "~3.0",
       "shx": "~0.3",
       "typescript": "~4.3"
