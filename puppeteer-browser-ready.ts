@@ -21,6 +21,8 @@ const browserReady = {
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<BrowserReadyWeb> {
       const defaults = { web: {}, addCheerio: true };
       const settings = { ...defaults, ...options };
+      if (options?.web)
+         console.log('[DEPRECATED] Remove "web" option and use: .then(browserReady.goto(url)).then(webInst => web = webInst)')
       return async (browser: Browser): Promise<BrowserReadyWeb> => {
          const page =     await browser.newPage();
          const response = await page.goto(url);
