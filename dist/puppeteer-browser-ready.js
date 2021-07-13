@@ -4,6 +4,8 @@ const browserReady = {
     goto(url, options) {
         const defaults = { web: {}, addCheerio: true };
         const settings = { ...defaults, ...options };
+        if (options?.web)
+            console.log('[DEPRECATED] Remove "web" option and use: .then(browserReady.goto(url)).then(webInst => web = webInst)');
         return async (browser) => {
             const page = await browser.newPage();
             const response = await page.goto(url);
