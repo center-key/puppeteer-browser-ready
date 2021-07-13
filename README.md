@@ -42,12 +42,12 @@ The **TypeScript Declaration File** file is
 [puppeteer-browser-ready.d.ts](dist/puppeteer-browser-ready.d.ts) in the **dist** folder.
 
 The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
-returns a JavaScript **Promise** that resolves with a **BrowserReadyWeb** object:
+returns a JavaScript **Promise** that resolves with a **Web** object:
 ```typescript
 type BrowserReadyWeb = {
-   browser:  Browser,
-   page:     Page,
-   response: Response | null,
+   browser:  Puppeteer.Browser,
+   page:     Puppeteer.Page,
+   response: HTTPResponse | null,
    title:    string,
    html:     string,
    $:        cheerio.Root | null,  //like jQuery
@@ -56,7 +56,7 @@ type BrowserReadyWeb = {
 
 ## D) Examples
 
-### Example: Node.js
+### Example: Node.js program
 **Code:**
 ```javascript
 import puppeteer from 'puppeteer';
@@ -81,7 +81,7 @@ web fields: browser, page, response, title, html, $
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long and contains 6 <p> tags.
 ```
 
-### Example: Mocha and Cheerio
+### Example: Mocha specification cases
 **Code:**
 ```javascript
 // Mocha Specification Cases
