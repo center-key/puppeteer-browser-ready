@@ -29,8 +29,35 @@ import { browserReady } from 'puppeteer-browser-ready';
 Use the `browserReady.goto()` function to tell Puppeteer which page to open.  The **Promise** will
 resolve with a **Web** object containing a `title` field and a `html` field.  Pass the **Web**
 object to the `browserReady.close()` function to disconnect the page.
+```javascript
+let web;  //fields: browser, page, response, url, status, statusText, title, html, $
+before(() => puppeteer.launch()
+   .then(browserReady.goto('https://pretty-print-json.js.org/'))
+   .then(webInst => web = webInst));
+after(() => browserReady.close(web));
+```
 
-**Example:**
+## C) TypeScript Declarations
+The **TypeScript Declaration File** file is
+[puppeteer-browser-ready.d.ts](dist/puppeteer-browser-ready.d.ts) in the **dist** folder.
+
+The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
+returns a JavaScript **Promise** that resolves with a **BrowserReadyWeb** object:
+```typescript
+type BrowserReadyWeb = {
+   browser:  Browser,
+   page:     Page,
+   response: Response | null,
+   title:    string,
+   html:     string,
+   $:        cheerio.Root | null,  //like jQuery
+   };
+```
+
+## D) Examples
+
+### Example: Node.js
+**Code:**
 ```javascript
 import puppeteer from 'puppeteer';
 import { browserReady } from 'puppeteer-browser-ready';
@@ -54,20 +81,8 @@ web fields: browser, page, response, title, html, $
 The HTML from https://pretty-print-json.js.org/ is 7556 characters long and contains 6 <p> tags.
 ```
 
-The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
-returns a JavaScript **Promise** that resolves with a **Web** object:
-```typescript
-type Web = {
-   browser:    Puppeteer.Browser,
-   page:       Puppeteer.Page,
-   response:   HTTPResponse | null,
-   title:      string,
-   html:       string,
-   $:          cheerio.Root | null,  //like jQuery
-   };
-```
-
-## C) Mocha and Cheerio Example
+### Example: Mocha and Cheerio
+**Code:**
 ```javascript
 // Mocha Specification Cases
 
@@ -119,7 +134,7 @@ describe('The document content', () => {
    });
 ```
 
-**Output from above Mocha test:**
+**Output:**
 ```
   The web page
     ✓ has the correct URL -> https://pretty-print-json.js.org/
