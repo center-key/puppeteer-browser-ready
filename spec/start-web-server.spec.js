@@ -1,4 +1,4 @@
-// Mocha Specification Cases
+// Mocha Specification Suite
 
 // Imports
 import puppeteer from 'puppeteer';

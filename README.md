@@ -95,10 +95,10 @@ The HTML from https://pretty-print-json.js.org/ is 7556 characters
 long and contains 6 <p> tags.
 ```
 
-### Example: Mocha specification cases
+### Example: Mocha specification suite
 **Code:**
 ```javascript
-// Mocha Specification Cases
+// Mocha Specification Suite
 
 // Imports
 import { assertDeepStrictEqual } from 'assert-deep-strict-equal';
@@ -163,6 +163,7 @@ in global fixtures to start and shutdown a static web server.
 
 For example, the **spec/fixtures/setup-teardown.js** file below starts a web server on port `7123`
 with the web root pointed to the project's **docs** folder.
+
 **Code:**
 ```javascript
 // Specification Fixtures
@@ -182,10 +183,11 @@ export { mochaGlobalSetup, mochaGlobalTeardown };
 ```
 Run specification suites with global fixtures:<br>
 `$ npx mocha spec/*.spec.js --require spec/fixtures/setup-teardown.js`
+
 **Output:**
 ```
   [2021-07-14T11:38:22.892Z] Web Server - listening: true 7123 http://localhost:7123/
-  ...Output of Mocha specification cases here...
+  ...Output of Mocha specification suites here...
   [2021-07-14T11:38:26.704Z] Web Server - shutdown: true
 ```
 
