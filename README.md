@@ -42,7 +42,7 @@ The **TypeScript Declaration File** file is
 [puppeteer-browser-ready.d.ts](dist/puppeteer-browser-ready.d.ts) in the **dist** folder.
 
 The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
-returns a JavaScript **Promise** that resolves with a **Web** object:
+returns a **Promise** that resolves with a **Web** object:
 ```typescript
 type BrowserReadyWeb = {
    browser:  Puppeteer.Browser,
@@ -51,6 +51,19 @@ type BrowserReadyWeb = {
    title:    string,
    html:     string,
    $:        cheerio.Root | null,  //like jQuery
+   };
+```
+
+The `browserReady.startWebServer()` function returns a **Promise** when the
+[static HTTP](spec/start-web-server.spec.js) server is ready:
+```typescript
+export type Http = {
+   server:     Server,
+   terminator: httpTerminator.HttpTerminator,
+   folder:     string,
+   url:        string,
+   port:       number,
+   verbose:    boolean,
    };
 ```
 
@@ -78,7 +91,8 @@ puppeteer.launch()
 ```
 Hello, World!
 web fields: browser, page, response, title, html, $
-The HTML from https://pretty-print-json.js.org/ is 7556 characters long and contains 6 <p> tags.
+The HTML from https://pretty-print-json.js.org/ is 7556 characters
+long and contains 6 <p> tags.
 ```
 
 ### Example: Mocha specification cases
@@ -133,7 +147,6 @@ describe('The document content', () => {
 
    });
 ```
-
 **Output:**
 ```
   The web page
@@ -142,6 +155,38 @@ describe('The document content', () => {
 
   The document content
     ✓ has a 🚀 traveling to 🪐!
+```
+
+### Example: Start and shutdown a static web server
+The [startWebServer() and shutdownWebServer()](spec/start-web-server.spec.js) functions can be used
+in global fixtures to start and shutdown a static web server.
+
+For example, the **spec/fixtures/setup-teardown.js** file below starts a web server on port `7123`
+with the web root pointed to the project's **docs** folder.
+**Code:**
+```javascript
+// Specification Fixtures
+import { browserReady } from 'puppeteer-browser-ready';
+let http;  //fields: server, terminator, folder, url, port, verbose
+
+// Setup
+const mochaGlobalSetup = () =>
+   browserReady.startWebServer({ folder: 'docs', port: 7123 })
+      .then(httpInst => http = httpInst);
+
+// Teardown
+const mochaGlobalTeardown = () =>
+   browserReady.shutdownWebServer(http);
+
+export { mochaGlobalSetup, mochaGlobalTeardown };
+```
+Run specification suites with global fixtures:<br>
+`$ npx mocha spec/*.spec.js --require spec/fixtures/setup-teardown.js`
+**Output:**
+```
+  [2021-07-14T11:38:22.892Z] Web Server - listening: true 7123 http://localhost:7123/
+  ...Output of Mocha specification cases here...
+  [2021-07-14T11:38:26.704Z] Web Server - shutdown: true
 ```
 
 <br>

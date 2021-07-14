@@ -3,17 +3,18 @@
 // Imports
 import { assertDeepStrictEqual } from 'assert-deep-strict-equal';
 import puppeteer from 'puppeteer';
-import { browserReady } from '../dist/puppeteer-browser-ready.js';
+import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace with: ...from 'puppeteer-browser-ready';
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
-let web;  //fields: browser, page, response, title, html, $
-const loadWebPage = () => puppeteer.launch()
-   .then(browserReady.goto(url))
-   .then(webInst => web = webInst);
-const closeWebPage = () => browserReady.close(web);
-before(loadWebPage);
-after(closeWebPage);
+describe('Load Web Page specification', () => {
+   let web;  //fields: browser, page, response, title, html, $
+   const loadWebPage = () => puppeteer.launch()
+      .then(browserReady.goto(url))
+      .then(webInst => web = webInst);
+   const closeWebPage = () => browserReady.close(web);
+   before(loadWebPage);
+   after(closeWebPage);
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
@@ -52,3 +53,6 @@ describe('The document content', () => {
       });
 
    });
+
+/////////////////////////////////////////////////////////////////////////////////////
+});
