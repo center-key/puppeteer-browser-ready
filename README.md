@@ -47,6 +47,7 @@ type BrowserReadyWeb = {
    browser:  Puppeteer.Browser,
    page:     Puppeteer.Page,
    response: HTTPResponse | null,
+   location: Location,
    title:    string,
    html:     string,
    $:        cheerio.Root | null,  //like jQuery

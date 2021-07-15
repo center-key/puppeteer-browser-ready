@@ -5,7 +5,7 @@ import cheerio from 'cheerio';
 import express from 'express';
 import httpTerminator from 'http-terminator';
 import { AddressInfo } from 'net';
-import { Browser, Page } from 'puppeteer';
+import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
 
 // TypeScript Declarations
@@ -25,7 +25,8 @@ export type Http = {
 type BrowserReadyWeb = {
    browser:  Browser,
    page:     Page,
-   response: Response | null,
+   response: HTTPResponse | null,
+   location: Location,
    title:    string,
    html:     string,
    $:        cheerio.Root | null,
@@ -74,11 +75,13 @@ const browserReady = {
       return async (browser: Browser): Promise<BrowserReadyWeb> => {
          const page =     await browser.newPage();
          const response = await page.goto(url);
+         const location = await page.evaluate(() => globalThis.location);
          const title =    response && await page.title();
          const html =     response && await response.text();
          const $ =        html && settings.addCheerio ? cheerio.load(html) : null;
-         return <BrowserReadyWeb>Object.assign(settings.web,
-            { browser, page, response, title, html, $ });
+         // return { browser, page, response, location, title, html, $ };
+         return Object.assign(settings.web,  //TODO: remove settings.web
+            { browser, page, response, location, title, html, $ });
          };
       },
    async close(web: BrowserReadyWeb): Promise<BrowserReadyWeb> {
