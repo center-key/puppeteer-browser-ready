@@ -33,7 +33,7 @@ object to the `browserReady.close()` function to disconnect the page.
 const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, url, status, statusText, title, html, $
 before(async () => web = await puppeteer.launch().then(browserReady.goto(url));
-after(async () =>  browserReady.close(web));
+after(async () =>  await browserReady.close(web));
 ```
 
 ## C) TypeScript Declarations
