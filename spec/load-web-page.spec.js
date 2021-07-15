@@ -1,19 +1,22 @@
 // Mocha Specification Suite
 
 // Imports
-import { assertDeepStrictEqual } from 'assert-deep-strict-equal';
 import puppeteer from 'puppeteer';
+import { assertDeepStrictEqual } from 'assert-deep-strict-equal';
 import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace with: ...from 'puppeteer-browser-ready';
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
+let web;  //fields: browser, page, response, title, html, $
+const loadWebPage =  async () => web = await puppeteer.launch().then(browserReady.goto(url));
+const closeWebPage = async () => await browserReady.close(web);
+
 describe('Load Web Page specification suite', () => {
-   let web;  //fields: browser, page, response, title, html, $
-   before(async () => web = await puppeteer.launch().then(browserReady.goto(url)));
-   after(async () =>  await browserReady.close(web));
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
+   before(loadWebPage);
+   after(closeWebPage);
 
    it('has the correct URL -> ' + url, () => {
       const actual =   { url: web.response.url() };
@@ -41,6 +44,8 @@ describe('The web page', () => {
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The document content', () => {
+   before(loadWebPage);
+   after(closeWebPage);
 
    it('has a 🚀 traveling to 🪐!', () => {
       const actual =   { '🚀': !!web.html.match(/🚀/g), '🪐': !!web.html.match(/🪐/g) };
