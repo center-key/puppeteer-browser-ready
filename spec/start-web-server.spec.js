@@ -8,6 +8,7 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 // Setup
 const options = { folder: 'spec/fixtures', verbose: false };
 const webPath = 'sample.html';
+
 describe('Start Web Server specification suite', () => {
    let http;  //fields: server, terminator, folder, url, port, verbose
    before(async () => http = await browserReady.startWebServer(options));

@@ -1,6 +1,6 @@
 {
    "name": "puppeteer-browser-ready",
-   "version": "0.2.5",
+   "version": "0.3.0",
    "description": "Simple utility to go to a URL and wait for the HTTP response (written in TypeScript)",
    "license": "MIT",
    "type": "module",

@@ -8,6 +8,7 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 // Setup
 const options = { folder: 'spec/fixtures', verbose: false };
 const webPath = 'sample.html';
+
 describe('Combo Server/Browser specification suite', () => {
 
 /////////////////////////////////////////////////////////////////////////////////////
