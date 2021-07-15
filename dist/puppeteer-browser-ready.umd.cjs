@@ -57,10 +57,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             return async (browser) => {
                 const page = await browser.newPage();
                 const response = await page.goto(url);
+                const location = await page.evaluate(() => globalThis.location);
                 const title = response && await page.title();
                 const html = response && await response.text();
                 const $ = html && settings.addCheerio ? cheerio_1.default.load(html) : null;
-                return Object.assign(settings.web, { browser, page, response, title, html, $ });
+                // return { browser, page, response, location, title, html, $ };
+                return Object.assign(settings.web, //TODO: remove settings.web
+                { browser, page, response, location, title, html, $ });
             };
         },
         async close(web) {

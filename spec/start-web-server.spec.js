@@ -21,7 +21,7 @@ describe('The sample web page', () => {
    after(async () =>  await browserReady.close(web));
 
    it('has the correct URL', () => {
-      const actual =   { url: web.response.url() };
+      const actual =   { url: web.location.href };
       const expected = { url: http.url + webPath };
       assertDeepStrictEqual(actual, expected);
       });

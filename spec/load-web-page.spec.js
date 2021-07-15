@@ -19,7 +19,7 @@ describe('The web page', () => {
    after(closeWebPage);
 
    it('has the correct URL -> ' + url, () => {
-      const actual =   { url: web.response.url() };
+      const actual =   { url: web.location.href };
       const expected = { url: url };
       assertDeepStrictEqual(actual, expected);
       });

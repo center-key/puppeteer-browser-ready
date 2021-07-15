@@ -2,7 +2,7 @@
 /// <reference types="node" />
 /// <reference types="cheerio" />
 import httpTerminator from 'http-terminator';
-import { Browser, Page } from 'puppeteer';
+import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
 export declare type StartWebServerOptions = {
     folder?: string;
@@ -20,7 +20,8 @@ export declare type Http = {
 declare type BrowserReadyWeb = {
     browser: Browser;
     page: Page;
-    response: Response | null;
+    response: HTTPResponse | null;
+    location: Location;
     title: string;
     html: string;
     $: cheerio.Root | null;
