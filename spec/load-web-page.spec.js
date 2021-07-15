@@ -7,7 +7,7 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
-describe('Load Web Page specification', () => {
+describe('Load Web Page specification suite', () => {
    let web;  //fields: browser, page, response, title, html, $
    const loadWebPage = () => puppeteer.launch()
       .then(browserReady.goto(url))

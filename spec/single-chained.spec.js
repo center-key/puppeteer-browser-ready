@@ -8,20 +8,21 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 // Setup
 const options = { folder: 'spec/fixtures', verbose: false };
 const webPath = 'sample.html';
-describe('Start Web Server specification suite', () => {
-   let http;  //fields: server, terminator, folder, url, port, verbose
-   before(() => browserReady.startWebServer(options).then(httpInst => http = httpInst));
-   after(() =>  browserReady.shutdownWebServer(http));
+describe('Single Chained specification suite', () => {
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
+   let http;  //fields: server, terminator, folder, url, port, verbose
    let web;  //fields: browser, page, response, title, html, $
-   const loadWebPage = () => puppeteer.launch()
-      .then(browserReady.goto(http.url + webPath))
-      .then(webInst => web = webInst);
-   const closeWebPage = () => browserReady.close(web);
-   before(loadWebPage);
-   after(closeWebPage);
+   before(() => browserReady.startWebServer(options)
+      .then(httpInst => http = httpInst)
+      .then(() => puppeteer.launch())
+      .then((browser) => browserReady.goto(http.url + webPath)(browser))
+      .then(webInst => web = webInst)
+      );
+   after(() => browserReady.close(web)
+      .then(() => browserReady.shutdownWebServer(http))
+      );
 
    it('has the correct URL', () => {
       const actual =   { url: web.response.url() };

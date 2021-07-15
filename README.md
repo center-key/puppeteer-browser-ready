@@ -54,8 +54,8 @@ type BrowserReadyWeb = {
    };
 ```
 
-The `browserReady.startWebServer()` function returns a **Promise** when the
-[static HTTP](spec/start-web-server.spec.js) server is ready:
+The optional `browserReady.startWebServer()` function starts a static web server and returns a
+**Promise** for when the [server](spec/start-web-server.spec.js) is ready:
 ```typescript
 export type Http = {
    server:     Server,
