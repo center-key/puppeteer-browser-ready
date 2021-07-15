@@ -9,12 +9,8 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 const url = 'https://pretty-print-json.js.org/';
 describe('Load Web Page specification suite', () => {
    let web;  //fields: browser, page, response, title, html, $
-   const loadWebPage = () => puppeteer.launch()
-      .then(browserReady.goto(url))
-      .then(webInst => web = webInst);
-   const closeWebPage = () => browserReady.close(web);
-   before(loadWebPage);
-   after(closeWebPage);
+   before(async () => web = await puppeteer.launch().then(browserReady.goto(url)));
+   after(async () =>  await browserReady.close(web));
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {

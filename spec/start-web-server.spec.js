@@ -10,18 +10,14 @@ const options = { folder: 'spec/fixtures', verbose: false };
 const webPath = 'sample.html';
 describe('Start Web Server specification suite', () => {
    let http;  //fields: server, terminator, folder, url, port, verbose
-   before(() => browserReady.startWebServer(options).then(httpInst => http = httpInst));
-   after(() =>  browserReady.shutdownWebServer(http));
+   before(async () => http = await browserReady.startWebServer(options));
+   after(async () =>  await browserReady.shutdownWebServer(http));
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
    let web;  //fields: browser, page, response, title, html, $
-   const loadWebPage = () => puppeteer.launch()
-      .then(browserReady.goto(http.url + webPath))
-      .then(webInst => web = webInst);
-   const closeWebPage = () => browserReady.close(web);
-   before(loadWebPage);
-   after(closeWebPage);
+   before(async () => web = await puppeteer.launch().then(browserReady.goto(http.url + webPath)));
+   after(async () =>  await browserReady.close(web));
 
    it('has the correct URL', () => {
       const actual =   { url: web.response.url() };

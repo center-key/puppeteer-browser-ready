@@ -30,11 +30,10 @@ Use the `browserReady.goto()` function to tell Puppeteer which page to open.  Th
 resolve with a **Web** object containing a `title` field and a `html` field.  Pass the **Web**
 object to the `browserReady.close()` function to disconnect the page.
 ```javascript
+const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, url, status, statusText, title, html, $
-before(() => puppeteer.launch()
-   .then(browserReady.goto('https://pretty-print-json.js.org/'))
-   .then(webInst => web = webInst));
-after(() => browserReady.close(web));
+before(async () => web = await puppeteer.launch().then(browserReady.goto(url));
+after(async () =>  browserReady.close(web));
 ```
 
 ## C) TypeScript Declarations
@@ -108,12 +107,8 @@ import { browserReady } from 'puppeteer-browser-ready';
 // Setup
 const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, url, status, statusText, title, html, $
-const loadWebPage = () => puppeteer.launch()
-   .then(browserReady.goto(url))
-   .then(webInst => web = webInst);
-const closeWebPage = () => browserReady.close(web);
-before(loadWebPage);
-after(closeWebPage);
+before(async () => web = await puppeteer.launch().then(browserReady.goto(url)));
+after(async () =>  browserReady.close(web));
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
@@ -171,13 +166,14 @@ import { browserReady } from 'puppeteer-browser-ready';
 let http;  //fields: server, terminator, folder, url, port, verbose
 
 // Setup
-const mochaGlobalSetup = () =>
-   browserReady.startWebServer({ folder: 'docs', port: 7123 })
-      .then(httpInst => http = httpInst);
+const mochaGlobalSetup = async () => {
+   http = await browserReady.startWebServer({ folder: 'docs', port: 7123 });
+   };
 
 // Teardown
-const mochaGlobalTeardown = () =>
-   browserReady.shutdownWebServer(http);
+const mochaGlobalTeardown = async () => {
+   await browserReady.shutdownWebServer(http);
+   };
 
 export { mochaGlobalSetup, mochaGlobalTeardown };
 ```
