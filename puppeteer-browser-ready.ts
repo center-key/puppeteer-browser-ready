@@ -23,17 +23,19 @@ export type Http = {
    port:       number,
    verbose:    boolean,
    };
-type BrowserReadyWeb = {
+export type Web = {
    browser:  Browser,
    page:     Page,
    response: HTTPResponse | null,
+   status:   number | null,
    location: Location,
    title:    string,
    html:     string,
    $:        cheerio.Root | null,
    };
-type BrowserReadyOptions = {
-   web:        Partial<BrowserReadyWeb>,
+export type BrowserReadyWeb = Web;  //deprecated
+export type BrowserReadyOptions = {
+   web:        Partial<Web>,
    addCheerio: boolean,
    };
 
@@ -75,24 +77,25 @@ const browserReady = {
    shutdownWebServer(http: Http): Promise<void> {
       return http.terminator.terminate();
       },
-   goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<BrowserReadyWeb> {
+   goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
       const defaults = { web: {}, addCheerio: true };
       const settings = { ...defaults, ...options };
       if (options?.web)
          console.log('[DEPRECATED] Remove "web" option and use: async () => web = await puppeteer.launch().then(...');
-      return async (browser: Browser): Promise<BrowserReadyWeb> => {
+      return async (browser: Browser): Promise<Web> => {
          const page =     await browser.newPage();
          const response = await page.goto(url);
+         const status =   response && response.status();
          const location = await page.evaluate(() => globalThis.location);
          const title =    response && await page.title();
          const html =     response && await response.text();
          const $ =        html && settings.addCheerio ? cheerio.load(html) : null;
-         // return { browser, page, response, location, title, html, $ };
+         // return { browser, page, response, status, location, title, html, $ };
          return Object.assign(settings.web,  //TODO: remove settings.web
-            { browser, page, response, location, title, html, $ });
+            { browser, page, response, status, location, title, html, $ });
          };
       },
-   async close(web: BrowserReadyWeb): Promise<BrowserReadyWeb> {
+   async close(web: Web): Promise<Web> {
       if (web && web.browser)
          await web.browser.close();
       return web;

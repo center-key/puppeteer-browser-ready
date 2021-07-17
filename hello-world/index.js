@@ -7,9 +7,9 @@
 //    $ npm install
 //    $ node index.js
 //    Hello, World!
-//    web fields: browser, page, response, url, status, statusText, html, $
-//    The HTML from https://pretty-print-json.js.org/ is 7556 characters
-//    long and contains 6 <p> tags.
+//    web fields: browser, page, response, status, location, title, html, $
+//    The HTML from https://pretty-print-json.js.org/ is 8200 characters
+//    long and contains 7 <p> tags.
 
 import puppeteer from 'puppeteer';
 import { browserReady } from 'puppeteer-browser-ready';

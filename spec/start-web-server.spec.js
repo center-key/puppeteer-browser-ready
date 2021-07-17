@@ -16,13 +16,13 @@ describe('Start Web Server specification suite', () => {
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
-   let web;  //fields: browser, page, response, location, title, html, $
+   let web;  //fields: browser, page, response, status, location, title, html, $
    before(async () => web = await puppeteer.launch().then(browserReady.goto(http.url + webPath)));
    after(async () =>  await browserReady.close(web));
 
    it('has the correct URL', () => {
-      const actual =   { url: web.location.href };
-      const expected = { url: http.url + webPath };
+      const actual =   { status: web.status, url: web.location.href };
+      const expected = { status: 200,        url: http.url + webPath };
       assertDeepStrictEqual(actual, expected);
       });
 

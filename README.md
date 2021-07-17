@@ -31,7 +31,7 @@ resolve with a **Web** object containing a `title` field and a `html` field.  Pa
 object to the `browserReady.close()` function to disconnect the page.
 ```javascript
 const url = 'https://pretty-print-json.js.org/';
-let web;  //fields: browser, page, response, url, status, statusText, title, html, $
+let web;  //fields: browser, page, response, status, location, title, html, $
 before(async () => web = await puppeteer.launch().then(browserReady.goto(url));
 after(async () =>  await browserReady.close(web));
 ```
@@ -43,7 +43,7 @@ The **TypeScript Declaration File** file is
 The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
 returns a **Promise** that resolves with a **Web** object:
 ```typescript
-type BrowserReadyWeb = {
+type Web = {
    browser:  Puppeteer.Browser,
    page:     Puppeteer.Page,
    response: HTTPResponse | null,
@@ -91,8 +91,8 @@ puppeteer.launch()
 ```
 Hello, World!
 web fields: browser, page, response, title, html, $
-The HTML from https://pretty-print-json.js.org/ is 7556 characters
-long and contains 6 <p> tags.
+The HTML from https://pretty-print-json.js.org/ is 8200 characters
+long and contains 7 <p> tags.
 ```
 
 ### Example: Mocha specification suite
@@ -107,7 +107,7 @@ import { browserReady } from 'puppeteer-browser-ready';
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
-let web;  //fields: browser, page, response, url, status, statusText, title, html, $
+let web;  //fields: browser, page, response, status, location, title, html, $
 const loadWebPage = async () =>
    web = await puppeteer.launch().then(browserReady.goto(url));
 const closeWebPage = async () =>  
@@ -119,8 +119,8 @@ describe('The web page', () => {
    after(closeWebPage);
 
    it('has the correct URL -> ' + url, () => {
-      const actual =   { url: web.location.href };
-      const expected = { url: url };
+      const actual =   { status: web.status, url: web.location.href };
+      const expected = { status: 200,        url: url };
       assertDeepStrictEqual(actual, expected);
       });
 

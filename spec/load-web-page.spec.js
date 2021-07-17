@@ -7,7 +7,7 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 
 // Setup
 const url = 'https://pretty-print-json.js.org/';
-let web;  //fields: browser, page, response, location, title, html, $
+let web;  //fields: browser, page, response, status, location, title, html, $
 const loadWebPage =  async () => web = await puppeteer.launch().then(browserReady.goto(url));
 const closeWebPage = async () => await browserReady.close(web);
 
@@ -19,8 +19,8 @@ describe('The web page', () => {
    after(closeWebPage);
 
    it('has the correct URL -> ' + url, () => {
-      const actual =   { url: web.location.href };
-      const expected = { url: url };
+      const actual =   { status: web.status, url: web.location.href };
+      const expected = { status: 200,        url: url };
       assertDeepStrictEqual(actual, expected);
       });
 
