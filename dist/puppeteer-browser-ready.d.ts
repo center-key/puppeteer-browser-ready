@@ -18,24 +18,26 @@ export declare type Http = {
     port: number;
     verbose: boolean;
 };
-declare type BrowserReadyWeb = {
+export declare type Web = {
     browser: Browser;
     page: Page;
     response: HTTPResponse | null;
+    status: number | null;
     location: Location;
     title: string;
     html: string;
     $: cheerio.Root | null;
 };
-declare type BrowserReadyOptions = {
-    web: Partial<BrowserReadyWeb>;
+export declare type BrowserReadyWeb = Web;
+export declare type BrowserReadyOptions = {
+    web: Partial<Web>;
     addCheerio: boolean;
 };
 declare const browserReady: {
     log(...args: unknown[]): void;
     startWebServer(options?: StartWebServerOptions | undefined): Promise<Http>;
     shutdownWebServer(http: Http): Promise<void>;
-    goto(url: string, options?: BrowserReadyOptions | undefined): (browser: Browser) => Promise<BrowserReadyWeb>;
-    close(web: BrowserReadyWeb): Promise<BrowserReadyWeb>;
+    goto(url: string, options?: BrowserReadyOptions | undefined): (browser: Browser) => Promise<Web>;
+    close(web: Web): Promise<Web>;
 };
 export { browserReady };
