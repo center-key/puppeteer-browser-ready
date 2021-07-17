@@ -14,7 +14,7 @@ describe('Combo Server/Browser specification suite', () => {
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
    let http;  //fields: server, terminator, folder, url, port, verbose
-   let web;   //fields: browser, page, response, title, html, $
+   let web;   //fields: browser, page, response, location, title, html, $
    before(async () => {
       http = await browserReady.startWebServer(options);
       web =  await puppeteer.launch().then(browserReady.goto(http.url + webPath));

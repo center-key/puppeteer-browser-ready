@@ -16,7 +16,7 @@ describe('Start Web Server specification suite', () => {
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
-   let web;  //fields: browser, page, response, title, html, $
+   let web;  //fields: browser, page, response, location, title, html, $
    before(async () => web = await puppeteer.launch().then(browserReady.goto(http.url + webPath)));
    after(async () =>  await browserReady.close(web));
 

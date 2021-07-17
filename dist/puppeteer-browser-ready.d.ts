@@ -8,6 +8,7 @@ export declare type StartWebServerOptions = {
     folder?: string;
     port?: number;
     verbose?: boolean;
+    autoCleanup?: boolean;
 };
 export declare type Http = {
     server: Server;

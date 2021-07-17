@@ -21,10 +21,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     // Package
     const browserReady = {
         log(...args) {
-            console.log('  [' + new Date().toISOString() + ']', ...args);
+            const indent = typeof globalThis['describe'] === 'function' ? '  [' : '[';
+            console.log(indent + new Date().toISOString() + ']', ...args);
         },
         startWebServer(options) {
-            const defaults = { folder: '.', port: 0, verbose: true };
+            const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
             const settings = { ...defaults, ...options };
             const server = express_1.default().use(express_1.default.static(settings.folder)).listen(settings.port);
             const terminator = http_terminator_1.default.createHttpTerminator({ server });
@@ -44,6 +45,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             server.on('listening', () => done(http()));
             if (settings.verbose)
                 server.on('listening', logListening).on('close', logClose);
+            const cleanup = () => {
+                console.log('[SIGINT]');
+                terminator.terminate();
+            };
+            if (settings.autoCleanup)
+                process.on('SIGINT', cleanup);
             return new Promise(resolve => done = resolve);
         },
         shutdownWebServer(http) {

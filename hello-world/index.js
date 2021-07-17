@@ -2,9 +2,10 @@
 
 // To run:
 //    $ git clone https://github.com/center-key/puppeteer-browser-ready.git
+//    $ cd puppeteer-browser-ready
 //    $ cd hello-world
 //    $ npm install
-//    $ node index
+//    $ node index.js
 //    Hello, World!
 //    web fields: browser, page, response, url, status, statusText, html, $
 //    The HTML from https://pretty-print-json.js.org/ is 7556 characters
