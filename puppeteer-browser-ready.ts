@@ -10,9 +10,10 @@ import { Server } from 'http';
 
 // TypeScript Declarations
 export type StartWebServerOptions = {
-   folder?:  string,
-   port?:    number,
-   verbose?: boolean,
+   folder?:      string,
+   port?:        number,
+   verbose?:     boolean,
+   autoCleanup?: boolean,
    };
 export type Http = {
    server:     Server,
@@ -39,13 +40,14 @@ type BrowserReadyOptions = {
 // Package
 const browserReady = {
    log(...args: unknown[]): void {
-      console.log('  [' + new Date().toISOString() + ']', ...args);
+      const indent = typeof globalThis['describe'] === 'function' ? '  [' : '[';
+      console.log(indent + new Date().toISOString() + ']', ...args);
       },
    startWebServer(options?: StartWebServerOptions): Promise<Http> {
-      const defaults = { folder: '.', port: 0, verbose: true };
+      const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
       const settings = { ...defaults, ...options };
-      const server = express().use(express.static(settings.folder)).listen(settings.port);
-      const terminator = httpTerminator.createHttpTerminator({ server });
+      const server =       express().use(express.static(settings.folder)).listen(settings.port);
+      const terminator =   httpTerminator.createHttpTerminator({ server });
       const port =         () => (<AddressInfo>server.address()).port;
       const url =          () => 'http://localhost:' + String(port()) + '/';
       const logListening = () => this.log('Web Server - listening:', server.listening, port(), url());
@@ -62,6 +64,12 @@ const browserReady = {
       server.on('listening', () => done(http()));
       if (settings.verbose)
          server.on('listening', logListening).on('close', logClose);
+      const cleanup = () => {
+         console.log('[SIGINT]');
+         terminator.terminate();
+         };
+      if (settings.autoCleanup)
+         process.on('SIGINT', cleanup);
       return new Promise(resolve => done = resolve);
       },
    shutdownWebServer(http: Http): Promise<void> {
