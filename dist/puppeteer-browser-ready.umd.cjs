@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         startWebServer(options) {
             const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
             const settings = { ...defaults, ...options };
-            const server = express_1.default().use(express_1.default.static(settings.folder)).listen(settings.port);
+            const server = (0, express_1.default)().use(express_1.default.static(settings.folder)).listen(settings.port);
             const terminator = http_terminator_1.default.createHttpTerminator({ server });
             const port = () => server.address().port;
             const url = () => 'http://localhost:' + String(port()) + '/';
