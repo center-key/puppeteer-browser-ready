@@ -1,5 +1,5 @@
-// puppeteer-browser-ready ~ github.com/center-key/puppeteer-browser-ready ~ MIT License
-/// <reference types="node" />
+//! puppeteer-browser-ready v0.3.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+
 /// <reference types="cheerio" />
 import httpTerminator from 'http-terminator';
 import { Browser, HTTPResponse, Page } from 'puppeteer';

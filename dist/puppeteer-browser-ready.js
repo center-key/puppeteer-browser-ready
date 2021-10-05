@@ -1,4 +1,5 @@
-// puppeteer-browser-ready ~ github.com/center-key/puppeteer-browser-ready ~ MIT License
+//! puppeteer-browser-ready v0.3.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+
 // Imports
 import cheerio from 'cheerio';
 import express from 'express';
