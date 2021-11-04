@@ -16,7 +16,7 @@
    "dependencies": {
       "jshint": "~2.13",
       "puppeteer": "~11.0",
-      "puppeteer-browser-ready": "~0.3"
+      "puppeteer-browser-ready": "~0.4"
    },
    "devDependencies": {}
 }
