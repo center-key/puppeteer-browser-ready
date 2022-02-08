@@ -33,7 +33,6 @@ export type Web = {
    html:     string,
    $:        cheerio.Root | null,
    };
-export type BrowserReadyWeb = Web;  //deprecated
 export type BrowserReadyOptions = {
    web:        Partial<Web>,
    addCheerio: boolean,
@@ -80,8 +79,6 @@ const browserReady = {
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
       const defaults = { web: {}, addCheerio: true };
       const settings = { ...defaults, ...options };
-      if (options?.web)
-         console.log('[DEPRECATED] Remove "web" option and use: async () => web = await puppeteer.launch().then(...');
       return async (browser: Browser): Promise<Web> => {
          const page =     await browser.newPage();
          const response = await page.goto(url);
@@ -90,9 +87,7 @@ const browserReady = {
          const title =    response && await page.title();
          const html =     response && await response.text();
          const $ =        html && settings.addCheerio ? cheerio.load(html) : null;
-         // return { browser, page, response, status, location, title, html, $ };
-         return Object.assign(settings.web,  //TODO: remove settings.web
-            { browser, page, response, status, location, title, html, $ });
+         return { browser, page, response, status, location, title, html, $ };
          };
       },
    async close(web: Web): Promise<Web> {
