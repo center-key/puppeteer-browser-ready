@@ -34,8 +34,8 @@ export type Web = {
    $:        cheerio.Root | null,
    };
 export type BrowserReadyOptions = {
-   web:        Partial<Web>,
-   addCheerio: boolean,
+   addCheerio?: boolean,
+   debugMode?:  boolean,
    };
 
 // Package
@@ -77,18 +77,27 @@ const browserReady = {
       return http.terminator.terminate();
       },
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
-      const defaults = { web: {}, addCheerio: true };
+      const defaults = { addCheerio: true, debugMode: false };
       const settings = { ...defaults, ...options };
-      return async (browser: Browser): Promise<Web> => {
-         const page =     await browser.newPage();
-         const response = await page.goto(url);
-         const status =   response && response.status();
-         const location = await page.evaluate(() => globalThis.location);
-         const title =    response && await page.title();
-         const html =     response && await response.text();
-         const $ =        html && settings.addCheerio ? cheerio.load(html) : null;
-         return { browser, page, response, status, location, title, html, $ };
+      const log = (item: object | string | null | undefined, msg?: string | null) => settings.debugMode &&
+         console.log('     ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
+      const web = async (browser: Browser): Promise<Web> => {
+         try {
+            const page =     await browser.newPage();                                  log(page);
+            const response = await page.goto(url);                                     log(response, response.url());
+            const status =   response && response.status();
+            const location = await page.evaluate(() => globalThis.location);           log(location, location.host);
+            const title =    response && await page.title();                           log(title, title);
+            const html =     response && await response.text();
+            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log($ && $['fn']);
+            return { browser, page, response, status, location, title, html, $ };
+            }
+         catch (error) {
+            console.log(settings, browser.isConnected(), error);
+            throw error;
+            }
          };
+         return web;
       },
    async close(web: Web): Promise<Web> {
       if (web && web.browser)
