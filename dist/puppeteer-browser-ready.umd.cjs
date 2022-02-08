@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.4.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.4.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -58,22 +58,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             return http.terminator.terminate();
         },
         goto(url, options) {
-            const defaults = { web: {}, addCheerio: true };
+            const defaults = { addCheerio: true, debugMode: false };
             const settings = { ...defaults, ...options };
-            if (options?.web)
-                console.log('[DEPRECATED] Remove "web" option and use: async () => web = await puppeteer.launch().then(...');
-            return async (browser) => {
-                const page = await browser.newPage();
-                const response = await page.goto(url);
-                const status = response && response.status();
-                const location = await page.evaluate(() => globalThis.location);
-                const title = response && await page.title();
-                const html = response && await response.text();
-                const $ = html && settings.addCheerio ? cheerio_1.default.load(html) : null;
-                // return { browser, page, response, status, location, title, html, $ };
-                return Object.assign(settings.web, //TODO: remove settings.web
-                { browser, page, response, status, location, title, html, $ });
+            const log = (item, msg) => settings.debugMode &&
+                console.log('     ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
+            const web = async (browser) => {
+                try {
+                    const page = await browser.newPage();
+                    log(page);
+                    const response = await page.goto(url);
+                    log(response, response.url());
+                    const status = response && response.status();
+                    const location = await page.evaluate(() => globalThis.location);
+                    log(location, location.host);
+                    const title = response && await page.title();
+                    log(title, title);
+                    const html = response && await response.text();
+                    const $ = html && settings.addCheerio ? cheerio_1.default.load(html) : null;
+                    log($ && $['fn']);
+                    return { browser, page, response, status, location, title, html, $ };
+                }
+                catch (error) {
+                    console.log(settings, browser.isConnected(), error);
+                    throw error;
+                }
             };
+            return web;
         },
         async close(web) {
             if (web && web.browser)

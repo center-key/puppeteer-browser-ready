@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.4.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.4.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 /// <reference types="cheerio" />
 import httpTerminator from 'http-terminator';
@@ -28,10 +28,9 @@ export declare type Web = {
     html: string;
     $: cheerio.Root | null;
 };
-export declare type BrowserReadyWeb = Web;
 export declare type BrowserReadyOptions = {
-    web: Partial<Web>;
-    addCheerio: boolean;
+    addCheerio?: boolean;
+    debugMode?: boolean;
 };
 declare const browserReady: {
     log(...args: unknown[]): void;
