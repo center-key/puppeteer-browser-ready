@@ -1,6 +1,6 @@
 {
    "name": "puppeteer-browser-ready",
-   "version": "0.4.4",
+   "version": "0.4.5",
    "description": "Simple utility to go to a URL and wait for the HTTP response (written in TypeScript)",
    "license": "MIT",
    "type": "module",
@@ -98,7 +98,7 @@
       "mocha": "~9.2",
       "npm-run-all2": "~5.0",
       "open": "~8.4",
-      "puppeteer": "~13.2",
+      "puppeteer": "~13.3",
       "rimraf": "~3.0",
       "typescript": "~4.5",
       "w3c-html-validator": "~1.0"

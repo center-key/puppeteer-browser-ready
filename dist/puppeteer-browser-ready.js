@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.4.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.4.5 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 // Imports
 import cheerio from 'cheerio';
@@ -46,11 +46,11 @@ const browserReady = {
         const defaults = { addCheerio: true, debugMode: false };
         const settings = { ...defaults, ...options };
         const log = (item, msg) => settings.debugMode &&
-            console.log('     ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
+            console.log('   ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
         const web = async (browser) => {
             try {
                 const page = await browser.newPage();
-                log(page);
+                log(page, url);
                 const response = await page.goto(url);
                 log(response, response.url());
                 const status = response && response.status();
@@ -64,7 +64,9 @@ const browserReady = {
                 return { browser, page, response, status, location, title, html, $ };
             }
             catch (error) {
-                console.log(settings, browser.isConnected(), error);
+                const status = browser.isConnected() ? 'connected' : 'not connected';
+                console.log('[puppeteer-browser-ready]', settings, status);
+                console.log(error);
                 throw error;
             }
         };
