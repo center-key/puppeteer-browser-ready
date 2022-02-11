@@ -80,10 +80,10 @@ const browserReady = {
       const defaults = { addCheerio: true, debugMode: false };
       const settings = { ...defaults, ...options };
       const log = (item: object | string | null | undefined, msg?: string | null) => settings.debugMode &&
-         console.log('     ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
+         console.log('   ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
       const web = async (browser: Browser): Promise<Web> => {
          try {
-            const page =     await browser.newPage();                                  log(page);
+            const page =     await browser.newPage();                                  log(page, url);
             const response = await page.goto(url);                                     log(response, response.url());
             const status =   response && response.status();
             const location = await page.evaluate(() => globalThis.location);           log(location, location.host);
@@ -93,11 +93,13 @@ const browserReady = {
             return { browser, page, response, status, location, title, html, $ };
             }
          catch (error) {
-            console.log(settings, browser.isConnected(), error);
+            const status = browser.isConnected() ? 'connected' : 'not connected';
+            console.log('[puppeteer-browser-ready]', settings, status);
+            console.log(error);
             throw error;
             }
          };
-         return web;
+      return web;
       },
    async close(web: Web): Promise<Web> {
       if (web && web.browser)
