@@ -80,7 +80,7 @@ const browserReady = {
       const defaults = { addCheerio: true, debugMode: false };
       const settings = { ...defaults, ...options };
       const log = (item: object | string | null | undefined, msg?: string | null) => settings.debugMode &&
-         console.log('   ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
+         console.log('   ', Date.now() % 100000, item?.constructor?.name, '-', msg ?? typeof item);
       const web = async (browser: Browser): Promise<Web> => {
          try {
             const page =     await browser.newPage();                                  log(page, url);

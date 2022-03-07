@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.4.5 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.4.6 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 // Imports
 import cheerio from 'cheerio';
@@ -46,7 +46,7 @@ const browserReady = {
         const defaults = { addCheerio: true, debugMode: false };
         const settings = { ...defaults, ...options };
         const log = (item, msg) => settings.debugMode &&
-            console.log('   ', Date.now() % 100000, item?.constructor?.name, msg ?? typeof item);
+            console.log('   ', Date.now() % 100000, item?.constructor?.name, '-', msg ?? typeof item);
         const web = async (browser) => {
             try {
                 const page = await browser.newPage();
