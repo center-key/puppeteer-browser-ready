@@ -79,17 +79,18 @@ const browserReady = {
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
       const defaults = { addCheerio: true, debugMode: false };
       const settings = { ...defaults, ...options };
-      const log = (item: object | string | null | undefined, msg?: string | null) => settings.debugMode &&
-         console.log('   ', Date.now() % 100000, item?.constructor?.name, '-', msg ?? typeof item);
+      const log = (label: string, msg: string | number | boolean | null) => settings.debugMode &&
+         console.log('   ', Date.now() % 100000, label + ':', msg);
       const web = async (browser: Browser): Promise<Web> => {
+         log('Connected', browser.isConnected());
          try {
-            const page =     await browser.newPage();                                  log(page, url);
-            const response = await page.goto(url);                                     log(response, response.url());
-            const status =   response && response.status();
-            const location = await page.evaluate(() => globalThis.location);           log(location, location.host);
-            const title =    response && await page.title();                           log(title, title);
-            const html =     response && await response.text();
-            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log($ && $['fn']);
+            const page =     await browser.newPage();                                  log('Page....', url);
+            const response = await page.goto(url);                                     log('Response', response.url());
+            const status =   response && response.status();                            log('Status',   status);
+            const location = await page.evaluate(() => globalThis.location);           log('Host',     location.host);
+            const title =    response && await page.title();                           log('Title',    title);
+            const html =     response && await response.text();                        log('Bytes',    html.length);
+            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $['fn'].constructor.name);
             return { browser, page, response, status, location, title, html, $ };
             }
          catch (error) {
