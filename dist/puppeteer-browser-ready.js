@@ -1,5 +1,14 @@
-//! puppeteer-browser-ready v0.4.6 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.4.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // Imports
 import cheerio from 'cheerio';
 import express from 'express';
@@ -12,7 +21,7 @@ const browserReady = {
     },
     startWebServer(options) {
         const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
-        const settings = { ...defaults, ...options };
+        const settings = Object.assign(Object.assign({}, defaults), options);
         const server = express().use(express.static(settings.folder)).listen(settings.port);
         const terminator = httpTerminator.createHttpTerminator({ server });
         const port = () => server.address().port;
@@ -44,23 +53,26 @@ const browserReady = {
     },
     goto(url, options) {
         const defaults = { addCheerio: true, debugMode: false };
-        const settings = { ...defaults, ...options };
-        const log = (item, msg) => settings.debugMode &&
-            console.log('   ', Date.now() % 100000, item?.constructor?.name, '-', msg ?? typeof item);
-        const web = async (browser) => {
+        const settings = Object.assign(Object.assign({}, defaults), options);
+        const log = (label, msg) => settings.debugMode &&
+            console.log('   ', Date.now() % 100000, label + ':', msg);
+        const web = (browser) => __awaiter(this, void 0, void 0, function* () {
+            log('Connected', browser.isConnected());
             try {
-                const page = await browser.newPage();
-                log(page, url);
-                const response = await page.goto(url);
-                log(response, response.url());
+                const page = yield browser.newPage();
+                log('Page....', url);
+                const response = yield page.goto(url);
+                log('Response', response.url());
                 const status = response && response.status();
-                const location = await page.evaluate(() => globalThis.location);
-                log(location, location.host);
-                const title = response && await page.title();
-                log(title, title);
-                const html = response && await response.text();
+                log('Status', status);
+                const location = yield page.evaluate(() => globalThis.location);
+                log('Host', location.host);
+                const title = response && (yield page.title());
+                log('Title', title);
+                const html = response && (yield response.text());
+                log('Bytes', html.length);
                 const $ = html && settings.addCheerio ? cheerio.load(html) : null;
-                log($ && $['fn']);
+                log('$', $ && $['fn'].constructor.name);
                 return { browser, page, response, status, location, title, html, $ };
             }
             catch (error) {
@@ -69,13 +81,15 @@ const browserReady = {
                 console.log(error);
                 throw error;
             }
-        };
+        });
         return web;
     },
-    async close(web) {
-        if (web && web.browser)
-            await web.browser.close();
-        return web;
+    close(web) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (web && web.browser)
+                yield web.browser.close();
+            return web;
+        });
     },
 };
 export { browserReady };
