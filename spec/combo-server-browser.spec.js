@@ -17,7 +17,7 @@ describe('The sample web page', () => {
    let web;   //fields: browser, page, response, status, location, title, html, $
    before(async () => {
       http = await browserReady.startWebServer(options);
-      web =  await puppeteer.launch().then(browserReady.goto(http.url + webPath));
+      web =  await puppeteer.launch().then(browserReady.goto(http.url + webPath, { verbose: true }));
       });
    after(async () => {
       await browserReady.close(web);

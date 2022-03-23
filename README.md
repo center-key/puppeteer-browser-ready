@@ -26,22 +26,35 @@ import { browserReady } from 'puppeteer-browser-ready';
 ```
 
 ## B) Usage
-Use the `browserReady.goto()` function to tell Puppeteer which page to open.  The **Promise** will
-resolve with a **Web** object containing a `title` field and a `html` field.  Pass the **Web**
-object to the `browserReady.close()` function to disconnect the page.
+Use the `browserReady.goto(url, options)` function to tell Puppeteer which page to open.
+The **Promise** will resolve with a **Web** object containing a `title` field and a `html` field.  
+Pass the **Web** object to the `browserReady.close(web)` function to disconnect the page.
 ```javascript
 const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, status, location, title, html, $
 before(async () => web = await puppeteer.launch().then(browserReady.goto(url));
 after(async () =>  await browserReady.close(web));
 ```
+### `goto()` Options
+| Name (key)   | Type        | Default | Description                                      |
+| :----------- | :---------- | :------ | :----------------------------------------------- |
+| `addCheerio` | **boolean** | `false` | Return a cheerio reference for querying the DOM. |
+| `verbose`    | **boolean** | `false` | Output HTTP connection debug messages.           |
+
+### `startWebServer()` Options
+| Name (key)    | Type        | Default| Description                                      |
+| :------------ | :---------- | :----- | :----------------------------------------------- |
+| `autoCleanup` | **boolean** | `true` | Terminate connection on interruption (`SIGINT`). |
+| `folder`      | **string**  | `'.'`  | Document root for the static web server.         |
+| `port`        | **number**  | `0`    | Port number for server (`0` find open port).     |
+| `verbose`     | **boolean** | `true` | Output informational messages.                   |
 
 ## C) TypeScript Declarations
 The **TypeScript Declaration File** file is
 [puppeteer-browser-ready.d.ts](dist/puppeteer-browser-ready.d.ts) in the **dist** folder.
 
-The `browserReady.goto()` function returns a function that takes a Puppeteer **Browser** object and
-returns a **Promise** that resolves with a **Web** object:
+The `browserReady.goto(url, options)` function returns a function that takes a Puppeteer **Browser**
+object and returns a **Promise** that resolves with a **Web** object:
 ```typescript
 type Web = {
    browser:  Puppeteer.Browser,
@@ -54,8 +67,8 @@ type Web = {
    };
 ```
 
-The optional `browserReady.startWebServer()` function starts a static web server and returns a
-**Promise** for when the [server](spec/start-web-server.spec.js) is ready:
+The optional `browserReady.startWebServer(options)` function starts a static web server and returns
+a **Promise** for when the [server](spec/start-web-server.spec.js) is ready:
 ```typescript
 export type Http = {
    server:     Server,
@@ -69,7 +82,7 @@ export type Http = {
 
 ## D) Examples
 
-### Example: Node.js program
+### Example 1: Node.js program
 **Code:**
 ```javascript
 import puppeteer from 'puppeteer';
@@ -95,7 +108,7 @@ The HTML from https://pretty-print-json.js.org/ is 8200 characters
 long and contains 7 <p> tags.
 ```
 
-### Example: Mocha specification suite
+### Example 2: Mocha specification suite
 **Code:**
 ```javascript
 // Mocha Specification Suite
@@ -159,9 +172,9 @@ describe('The document content', () => {
     ✓ has a 🚀 traveling to 🪐!
 ```
 
-### Example: Start and shutdown a static web server
-The [startWebServer() and shutdownWebServer()](spec/start-web-server.spec.js) functions can be used
-in global fixtures to start and shutdown a static web server.
+### Example 3: Start and shutdown a static web server
+The [startWebServer(options) and shutdownWebServer(http)](spec/start-web-server.spec.js) functions
+can be used in global fixtures to start and shutdown a static web server.
 
 For example, the **spec/fixtures/setup-teardown.js** file below starts a web server on port `7123`
 with the web root pointed to the project's **docs** folder.

@@ -10,10 +10,10 @@ import { Server } from 'http';
 
 // TypeScript Declarations
 export type StartWebServerOptions = {
-   folder?:      string,
-   port?:        number,
-   verbose?:     boolean,
-   autoCleanup?: boolean,
+   folder?:      string,   //document root for the static web server
+   port?:        number,   //port number for server (`0` find open port)
+   verbose?:     boolean,  //output informational messages
+   autoCleanup?: boolean,  //terminate connection on interruption (`SIGINT`)
    };
 export type Http = {
    server:     Server,
@@ -34,8 +34,8 @@ export type Web = {
    $:        cheerio.Root | null,
    };
 export type BrowserReadyOptions = {
-   addCheerio?: boolean,
-   debugMode?:  boolean,
+   addCheerio?: boolean,  //return a cheerio reference for querying the DOM
+   verbose?:    boolean,  //output HTTP connection debug messages
    };
 
 // Package
@@ -77,9 +77,9 @@ const browserReady = {
       return http.terminator.terminate();
       },
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
-      const defaults = { addCheerio: true, debugMode: false };
+      const defaults = { addCheerio: true, verbose: false };
       const settings = { ...defaults, ...options };
-      const log = (label: string, msg: string | number | boolean | null) => settings.debugMode &&
+      const log = (label: string, msg: string | number | boolean | null) => settings.verbose &&
          console.log('   ', Date.now() % 100000, label + ':', msg);
       const web = async (browser: Browser): Promise<Web> => {
          log('Connected', browser.isConnected());
