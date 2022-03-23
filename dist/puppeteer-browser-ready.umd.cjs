@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.4.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -67,9 +67,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             return http.terminator.terminate();
         },
         goto(url, options) {
-            const defaults = { addCheerio: true, debugMode: false };
+            const defaults = { addCheerio: true, verbose: false };
             const settings = Object.assign(Object.assign({}, defaults), options);
-            const log = (label, msg) => settings.debugMode &&
+            const log = (label, msg) => settings.verbose &&
                 console.log('   ', Date.now() % 100000, label + ':', msg);
             const web = (browser) => __awaiter(this, void 0, void 0, function* () {
                 log('Connected', browser.isConnected());
