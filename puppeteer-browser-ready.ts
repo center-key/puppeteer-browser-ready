@@ -29,8 +29,8 @@ export type Web = {
    response: HTTPResponse | null,
    status:   number | null,
    location: Location,
-   title:    string,
-   html:     string,
+   title:    string | null,
+   html:     string | null,
    $:        cheerio.Root | null,
    };
 export type BrowserReadyOptions = {
@@ -79,17 +79,17 @@ const browserReady = {
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
       const defaults = { addCheerio: true, verbose: false };
       const settings = { ...defaults, ...options };
-      const log = (label: string, msg: string | number | boolean | null) => settings.verbose &&
+      const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
          console.log('   ', Date.now() % 100000, label + ':', msg);
       const web = async (browser: Browser): Promise<Web> => {
          log('Connected', browser.isConnected());
          try {
             const page =     await browser.newPage();                                  log('Page....', url);
-            const response = await page.goto(url);                                     log('Response', response.url());
+            const response = await page.goto(url);                                     log('Response', response?.url());
             const status =   response && response.status();                            log('Status',   status);
             const location = await page.evaluate(() => globalThis.location);           log('Host',     location.host);
             const title =    response && await page.title();                           log('Title',    title);
-            const html =     response && await response.text();                        log('Bytes',    html.length);
+            const html =     response && await response.text();                        log('Bytes',    html?.length);
             const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $['fn'].constructor.name);
             return { browser, page, response, status, location, title, html, $ };
             }
