@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.5.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.2 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -62,7 +62,7 @@ const browserReady = {
                 const page = yield browser.newPage();
                 log('Page....', url);
                 const response = yield page.goto(url);
-                log('Response', response.url());
+                log('Response', response === null || response === void 0 ? void 0 : response.url());
                 const status = response && response.status();
                 log('Status', status);
                 const location = yield page.evaluate(() => globalThis.location);
@@ -70,7 +70,7 @@ const browserReady = {
                 const title = response && (yield page.title());
                 log('Title', title);
                 const html = response && (yield response.text());
-                log('Bytes', html.length);
+                log('Bytes', html === null || html === void 0 ? void 0 : html.length);
                 const $ = html && settings.addCheerio ? cheerio.load(html) : null;
                 log('$', $ && $['fn'].constructor.name);
                 return { browser, page, response, status, location, title, html, $ };
