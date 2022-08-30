@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.5.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.5 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 /// <reference types="cheerio" />
 import httpTerminator from 'http-terminator';
