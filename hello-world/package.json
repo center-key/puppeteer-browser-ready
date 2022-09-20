@@ -10,12 +10,12 @@
       "esversion": 9
    },
    "scripts": {
-      "test": "jshint *.js",
+      "test": "jshint . --exclude-path .gitignore",
       "start": "node index"
    },
    "dependencies": {
       "jshint": "~2.13",
-      "puppeteer": "~17.0",
+      "puppeteer": "~18.0",
       "puppeteer-browser-ready": "~0.5"
    },
    "devDependencies": {}
