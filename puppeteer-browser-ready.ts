@@ -1,20 +1,21 @@
 // puppeteer-browser-ready ~ github.com/center-key/puppeteer-browser-ready ~ MIT License
 
 // Imports
-import cheerio from 'cheerio';
-import express from 'express';
-import httpTerminator from 'http-terminator';
 import { AddressInfo } from 'net';
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
+import cheerio from 'cheerio';
+import express from 'express';
+import httpTerminator from 'http-terminator';
 
 // TypeScript Declarations
-export type StartWebServerOptions = {
-   folder?:      string,   //document root for the static web server
-   port?:        number,   //port number for server (`0` find open port)
-   verbose?:     boolean,  //output informational messages
-   autoCleanup?: boolean,  //terminate connection on interruption (`SIGINT`)
+export type StartWebServerSettings = {
+   folder:      string,   //document root for the static web server
+   port:        number,   //port number for server (`0` find open port)
+   verbose:     boolean,  //output informational messages
+   autoCleanup: boolean,  //terminate connection on interruption (`SIGINT`)
    };
+export type StartWebServerOptions = Partial<StartWebServerSettings>;
 export type Http = {
    server:     Server,
    terminator: httpTerminator.HttpTerminator,
@@ -33,10 +34,11 @@ export type Web = {
    html:     string | null,
    $:        cheerio.Root | null,
    };
-export type BrowserReadyOptions = {
-   addCheerio?: boolean,  //return a cheerio reference for querying the DOM
-   verbose?:    boolean,  //output HTTP connection debug messages
+export type BrowserReadySettings = {
+   addCheerio: boolean,  //return a cheerio reference for querying the DOM
+   verbose:    boolean,  //output HTTP connection debug messages
    };
+export type BrowserReadyOptions = Partial<BrowserReadySettings>;
 
 // Package
 const browserReady = {
