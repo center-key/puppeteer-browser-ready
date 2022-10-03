@@ -74,7 +74,7 @@
       "step:07": "add-dist-header build dist",
       "step:08": "html-validator",
       "pretest": "npm-run-all step:*",
-      "test": "mocha spec/*.spec.js --timeout 5000"
+      "test": "mocha spec/*.spec.js --timeout 5000 --retries 1"
    },
    "peerDependencies": {
       "puppeteer": "^5 || ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || ^13 || ^14 || ^15 || ^16 || ^17 || ^18"
@@ -87,11 +87,11 @@
    "devDependencies": {
       "@types/cheerio": "~0.22",
       "@types/express": "~4.17",
-      "@types/node": "~18.7",
+      "@types/node": "~18.8",
       "@types/ws": "~8.5",
-      "@typescript-eslint/eslint-plugin": "~5.38",
-      "@typescript-eslint/parser": "~5.38",
-      "add-dist-header": "~0.2",
+      "@typescript-eslint/eslint-plugin": "~5.39",
+      "@typescript-eslint/parser": "~5.39",
+      "add-dist-header": "~0.3",
       "assert-deep-strict-equal": "~1.0",
       "copy-file-util": "~0.1",
       "copy-folder-cli": "~0.1",
