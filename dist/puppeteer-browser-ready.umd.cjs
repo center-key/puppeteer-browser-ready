@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.5.6 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -24,7 +24,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.browserReady = void 0;
-    // Imports
     const cheerio_1 = __importDefault(require("cheerio"));
     const express_1 = __importDefault(require("express"));
     const http_terminator_1 = __importDefault(require("http-terminator"));

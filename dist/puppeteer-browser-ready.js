@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.5.6 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// Imports
 import cheerio from 'cheerio';
 import express from 'express';
 import httpTerminator from 'http-terminator';
