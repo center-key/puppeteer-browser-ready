@@ -34,7 +34,7 @@
       "url"
    ],
    "jshintConfig": {
-      "esversion": 9,
+      "esversion": 11,
       "strict": "implied",
       "eqeqeq": true,
       "latedef": true,
@@ -103,6 +103,6 @@
       "puppeteer": "~18.2",
       "rimraf": "~3.0",
       "typescript": "~4.8",
-      "w3c-html-validator": "~1.1"
+      "w3c-html-validator": "~1.2"
    }
 }

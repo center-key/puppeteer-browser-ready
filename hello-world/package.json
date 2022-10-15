@@ -7,7 +7,7 @@
    "type": "module",
    "main": "index.js",
    "jshintConfig": {
-      "esversion": 9
+      "esversion": 11
    },
    "scripts": {
       "test": "jshint . --exclude-path .gitignore",
