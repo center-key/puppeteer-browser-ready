@@ -25,7 +25,7 @@ setupTools() {
    which node || { echo "Need to install Node.js: https://nodejs.org"; exit; }
    node --version
    npm install --no-fund
-   npm update
+   npm update --no-fund
    npm outdated
    echo
    }
@@ -90,7 +90,7 @@ helloWorld() {
    grep version ../package.json | head -1
    grep puppeteer-browser-ready package.json | grep "~"
    npm install --no-fund
-   npm update
+   npm update --no-fund
    npm outdated
    npm test
    npm start

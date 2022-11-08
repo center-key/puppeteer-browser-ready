@@ -4,8 +4,8 @@
 import { AddressInfo } from 'net';
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
-import cheerio from 'cheerio';
-import express from 'express';
+import cheerio        from 'cheerio';
+import express        from 'express';
 import httpTerminator from 'http-terminator';
 
 // TypeScript Declarations
