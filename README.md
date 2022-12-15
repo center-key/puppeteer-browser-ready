@@ -27,7 +27,7 @@ import { browserReady } from 'puppeteer-browser-ready';
 
 ## B) Usage
 Use the `browserReady.goto(url, options)` function to tell Puppeteer which page to open.
-The **Promise** will resolve with a **Web** object containing a `title` field and a `html` field.  
+The **Promise** will resolve with a **Web** object containing a `title` field and a `html` field.
 Pass the **Web** object to the `browserReady.close(web)` function to disconnect the page.
 ```javascript
 const url = 'https://pretty-print-json.js.org/';
@@ -50,8 +50,8 @@ after(async () =>  await browserReady.close(web));
 | `verbose`     | **boolean** | `true` | Output informational messages.                   |
 
 ## C) TypeScript Declarations
-The **TypeScript Declaration File** file is
-[puppeteer-browser-ready.d.ts](dist/puppeteer-browser-ready.d.ts) in the **dist** folder.
+See the TypeScript declarations at the top of the
+[puppeteer-browser-ready.ts](puppeteer-browser-ready.ts) file.
 
 The `browserReady.goto(url, options)` function returns a function that takes a Puppeteer **Browser**
 object and returns a **Promise** that resolves with a **Web** object:
@@ -123,7 +123,7 @@ const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, status, location, title, html, $
 const loadWebPage = async () =>
    web = await puppeteer.launch().then(browserReady.goto(url));
-const closeWebPage = async () =>  
+const closeWebPage = async () =>
    await browserReady.close(web);
 
 /////////////////////////////////////////////////////////////////////////////////////
