@@ -1,17 +1,17 @@
-//! puppeteer-browser-ready v0.5.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.8 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 /// <reference types="cheerio" />
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
 import httpTerminator from 'http-terminator';
-export declare type StartWebServerSettings = {
+export type StartWebServerSettings = {
     folder: string;
     port: number;
     verbose: boolean;
     autoCleanup: boolean;
 };
-export declare type StartWebServerOptions = Partial<StartWebServerSettings>;
-export declare type Http = {
+export type StartWebServerOptions = Partial<StartWebServerSettings>;
+export type Http = {
     server: Server;
     terminator: httpTerminator.HttpTerminator;
     folder: string;
@@ -19,7 +19,7 @@ export declare type Http = {
     port: number;
     verbose: boolean;
 };
-export declare type Web = {
+export type Web = {
     browser: Browser;
     page: Page;
     response: HTTPResponse | null;
@@ -29,11 +29,11 @@ export declare type Web = {
     html: string | null;
     $: cheerio.Root | null;
 };
-export declare type BrowserReadySettings = {
+export type BrowserReadySettings = {
     addCheerio: boolean;
     verbose: boolean;
 };
-export declare type BrowserReadyOptions = Partial<BrowserReadySettings>;
+export type BrowserReadyOptions = Partial<BrowserReadySettings>;
 declare const browserReady: {
     log(...args: unknown[]): void;
     startWebServer(options?: StartWebServerOptions): Promise<Http>;

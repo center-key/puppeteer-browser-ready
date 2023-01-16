@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.5.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.5.8 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
