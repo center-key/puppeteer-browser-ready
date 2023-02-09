@@ -81,7 +81,7 @@
       "test": "mocha spec/*.spec.js --timeout 5000 --retries 1"
    },
    "peerDependencies": {
-      "puppeteer": "^5 || ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || ^13 || ^14 || ^15 || ^16 || ^17 || ^18 || ^19"
+      "puppeteer": "^5 || ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || ^13 || ^14 || ^15 || ^16 || ^17 || ^18 || ^19 < 19.6"
    },
    "dependencies": {
       "cheerio": "~1.0.0-rc.12",
@@ -91,20 +91,20 @@
    "devDependencies": {
       "@types/cheerio": "~0.22",
       "@types/express": "~4.17",
-      "@types/node": "~18.11",
+      "@types/node": "~18.13",
       "@types/ws": "~8.5",
-      "@typescript-eslint/eslint-plugin": "~5.48",
-      "@typescript-eslint/parser": "~5.48",
+      "@typescript-eslint/eslint-plugin": "~5.51",
+      "@typescript-eslint/parser": "~5.51",
       "add-dist-header": "~0.3",
       "assert-deep-strict-equal": "~1.0",
       "copy-file-util": "~0.1",
       "copy-folder-util": "~0.2",
-      "eslint": "~8.32",
+      "eslint": "~8.33",
       "jshint": "~2.13",
       "mocha": "~10.2",
       "open": "~8.4",
-      "puppeteer": "~19.5",
-      "rimraf": "~4.0",
+      "puppeteer": "19.5",
+      "rimraf": "3",
       "run-scripts-util": "~0.1",
       "typescript": "~4.9",
       "w3c-html-validator": "~1.3"
