@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v0.5.9 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v0.6.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 /// <reference types="cheerio" />
 import { Browser, HTTPResponse, Page } from 'puppeteer';
