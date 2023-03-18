@@ -4,6 +4,7 @@
 import { AddressInfo } from 'net';
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
+import { SuiteFunction } from 'mocha';
 import cheerio        from 'cheerio';
 import express        from 'express';
 import httpTerminator from 'http-terminator';
@@ -39,11 +40,12 @@ export type BrowserReadySettings = {
    verbose:    boolean,  //output HTTP connection debug messages
    };
 export type BrowserReadyOptions = Partial<BrowserReadySettings>;
+declare global { var describe: SuiteFunction }  //eslint-disable-line no-var
 
 // Package
 const browserReady = {
    log(...args: unknown[]): void {
-      const indent = typeof globalThis['describe'] === 'function' ? '  [' : '[';
+      const indent = typeof globalThis.describe === 'function' ? '  [' : '[';
       console.log(indent + new Date().toISOString() + ']', ...args);
       },
    startWebServer(options?: StartWebServerOptions): Promise<Http> {
@@ -92,7 +94,7 @@ const browserReady = {
             const location = await page.evaluate(() => globalThis.location);           log('Host',     location.host);
             const title =    response && await page.title();                           log('Title',    title);
             const html =     response && await response.text();                        log('Bytes',    html?.length);
-            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $['fn'].constructor.name);
+            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $['fn' as keyof typeof $].constructor.name);
             return { browser, page, response, status, location, title, html, $ };
             }
          catch (error) {
