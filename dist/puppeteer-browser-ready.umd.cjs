@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.0.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.0.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -30,7 +30,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     // Package
     const browserReady = {
         log(...args) {
-            const indent = typeof globalThis['describe'] === 'function' ? '  [' : '[';
+            const indent = typeof globalThis.describe === 'function' ? '  [' : '[';
             console.log(indent + new Date().toISOString() + ']', ...args);
         },
         startWebServer(options) {

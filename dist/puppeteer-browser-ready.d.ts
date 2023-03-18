@@ -1,8 +1,9 @@
-//! puppeteer-browser-ready v1.0.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.0.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 /// <reference types="cheerio" />
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { Server } from 'http';
+import { SuiteFunction } from 'mocha';
 import httpTerminator from 'http-terminator';
 export type StartWebServerSettings = {
     folder: string;
@@ -34,6 +35,9 @@ export type BrowserReadySettings = {
     verbose: boolean;
 };
 export type BrowserReadyOptions = Partial<BrowserReadySettings>;
+declare global {
+    var describe: SuiteFunction;
+}
 declare const browserReady: {
     log(...args: unknown[]): void;
     startWebServer(options?: StartWebServerOptions): Promise<Http>;
