@@ -94,7 +94,7 @@ const browserReady = {
             const location = await page.evaluate(() => globalThis.location);           log('Host',     location.host);
             const title =    response && await page.title();                           log('Title',    title);
             const html =     response && await response.text();                        log('Bytes',    html?.length);
-            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $['fn' as keyof typeof $].constructor.name);
+            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $[<keyof typeof $>'fn'].constructor.name);
             return { browser, page, response, status, location, title, html, $ };
             }
          catch (error) {

@@ -215,7 +215,7 @@ option to bump up the allowed test execution time.
 Example configuration in **package.json** to allow 5,000 ms:
 ```json
    "scripts": {
-      "pretest": "run-scripts build",
+      "pretest": "run-scripts clean build",
       "test": "mocha spec/*.spec.js --timeout 5000"
    },
 ```
