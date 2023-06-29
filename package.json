@@ -5,15 +5,14 @@
    "license": "MIT",
    "type": "module",
    "module": "dist/puppeteer-browser-ready.js",
-   "main": "dist/puppeteer-browser-ready.umd.cjs",
+   "main": "dist/puppeteer-browser-ready.js",
    "types": "dist/puppeteer-browser-ready.d.ts",
    "files": [
       "dist"
    ],
    "exports": {
       ".": {
-         "import": "./dist/puppeteer-browser-ready.js",
-         "require": "./dist/puppeteer-browser-ready.umd.cjs"
+         "import": "./dist/puppeteer-browser-ready.js"
       },
       "./": "./dist/"
    },
@@ -72,8 +71,6 @@
          "jshint . --exclude-path .gitignore",
          "eslint --max-warnings 0 . --ext .ts",
          "tsc",
-         "tsc --module UMD --outDir build/umd",
-         "copy-file build/umd/puppeteer-browser-ready.js build/puppeteer-browser-ready.umd.cjs",
          "add-dist-header build dist",
          "html-validator"
       ]

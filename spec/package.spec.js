@@ -11,8 +11,7 @@ describe('The "dist" folder', () => {
       const actual = fs.readdirSync('dist').sort();
       const expected = [
          'puppeteer-browser-ready.d.ts',
-         'puppeteer-browser-ready.js',
-         'puppeteer-browser-ready.umd.cjs',
+         'puppeteer-browser-ready.js'
          ];
       assertDeepStrictEqual(actual, expected);
       });
