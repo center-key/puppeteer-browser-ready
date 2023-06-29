@@ -8,8 +8,8 @@ _Simple utility to go to a URL and wait for the HTTP response_
 [![Vulnerabilities](https://snyk.io/test/github/center-key/puppeteer-browser-ready/badge.svg)](https://snyk.io/test/github/center-key/puppeteer-browser-ready)
 [![Build](https://github.com/center-key/puppeteer-browser-ready/workflows/build/badge.svg)](https://github.com/center-key/puppeteer-browser-ready/actions/workflows/run-spec-on-push.yaml)
 
-**puppeteer-browser-ready** is a convenient helper utility to reduce the amount of boilerplate
-code needed to tell Puppeteer to visit a web page and and retrieve the HTML.&nbsp;
+**puppeteer-browser-ready** is a helper utility to reduce the amount of boilerplate code needed
+to tell Puppeteer to visit a web page and and retrieve the HTML.&nbsp;
 It's primarily intended for use within [Mocha](https://mochajs.org) test cases.&nbsp;
 In addition to the raw HTML, you get a [cheerio](https://cheerio.js.org) reference so you can
 immediately run queries on the DOM.
@@ -63,7 +63,7 @@ type Web = {
    location: Location,
    title:    string,
    html:     string,
-   $:        cheerio.Root | null,  //like jQuery
+   $:        cheerio.Root | null,  //library for parsing and manipulating HTML
    };
 ```
 
@@ -138,12 +138,8 @@ describe('The web page', () => {
       });
 
    it('has exactly one header, main, and footer', () => {
-      const actual = {
-         header: web.$('body >header').length,
-         main:   web.$('body >main').length,
-         footer: web.$('body >footer').length,
-         };
-      const expected = { header: 1, main: 1, footer: 1 };
+      const actual =   web.$('body >*').toArray().map(elem => elem.name);
+      const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });
 
