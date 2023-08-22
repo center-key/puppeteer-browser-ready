@@ -67,16 +67,18 @@
       "clean": [
          "rimraf build dist"
       ],
-      "build": [
+      "lint": [
          "jshint . --exclude-path .gitignore",
-         "eslint --max-warnings 0 . --ext .ts",
+         "eslint --max-warnings 0 . --ext .ts"
+      ],
+      "build": [
          "tsc",
          "add-dist-header build dist",
          "html-validator"
       ]
    },
    "scripts": {
-      "pretest": "run-scripts clean build",
+      "pretest": "run-scripts clean lint build",
       "test": "mocha spec/*.spec.js --timeout 5000 --retries 1"
    },
    "peerDependencies": {
@@ -91,19 +93,19 @@
       "@types/cheerio": "~0.22",
       "@types/express": "~4.17",
       "@types/mocha": "~10.0",
-      "@types/node": "~20.4",
+      "@types/node": "~20.5",
       "@types/ws": "~8.5",
-      "@typescript-eslint/eslint-plugin": "~6.2",
-      "@typescript-eslint/parser": "~6.2",
-      "add-dist-header": "~1.1",
+      "@typescript-eslint/eslint-plugin": "~6.4",
+      "@typescript-eslint/parser": "~6.4",
+      "add-dist-header": "~1.2",
       "assert-deep-strict-equal": "~1.1",
       "copy-file-util": "~1.1",
       "copy-folder-util": "~1.1",
-      "eslint": "~8.46",
+      "eslint": "~8.47",
       "jshint": "~2.13",
       "mocha": "~10.2",
       "open": "~9.1",
-      "puppeteer": "~21.0",
+      "puppeteer": "~21.1",
       "rimraf": "~5.0",
       "run-scripts-util": "~1.2",
       "typescript": "~5.1",
