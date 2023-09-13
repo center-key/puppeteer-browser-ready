@@ -30,12 +30,6 @@ describe('The web page', () => {
       assertDeepStrictEqual(actual, expected);
       });
 
-   it('has a body with exactly one header, main, and footer -- Cheerio', () => {
-      const actual =   web.$('body >*').toArray().map(elem => elem.name);
-      const expected = ['header', 'main', 'footer'];
-      assertDeepStrictEqual(actual, expected);
-      });
-
    it('has a body with exactly one header, main, and footer -- node-html-parsed', () => {
       const getTags = (selector) =>
          [...web.root.querySelectorAll(selector)].map(node => node.tagName.toLowerCase());

@@ -34,7 +34,7 @@ export type Web = {
    location: Location,
    title:    string | null,
    html:     string | null,
-   $:        cheerio.Root | null,
+   $:        cheerio.Root | null,  //deprecated
    root:     HTMLElement | null,
    };
 export type BrowserReadySettings = {
@@ -86,6 +86,8 @@ const browserReady = {
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
       const defaults = { addCheerio: true, parseHtml: true, verbose: false };
       const settings = { ...defaults, ...options };
+      if (options?.addCheerio)
+         console.log('puppeteer-browser-ready: Option "addCheerio" is deprecated, use "parseHtml" instead.');
       const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
          console.log('   ', Date.now() % 100000, label + ':', msg);
       const rootInfo = (root: HTMLElement) => root.constructor.name + '/' + root.firstChild.toString();
@@ -98,8 +100,8 @@ const browserReady = {
             const location = await page.evaluate(() => globalThis.location);           log('Host',     location.host);
             const title =    response && await page.title();                           log('Title',    title);
             const html =     response && await response.text();                        log('Bytes',    html?.length);
-            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $[<keyof typeof $>'fn'].constructor.name);
-            const root =     html && settings.parseHtml ? parse(html) : null;          log('DOM Root', root ? rootInfo(root) : null);
+            const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  //deprecated
+            const root =     html && settings.parseHtml ? parse(html) : null;          log('DOM root', root ? rootInfo(root) : null);
             return { browser, page, response, status, location, title, html, $, root };
             }
          catch (error) {

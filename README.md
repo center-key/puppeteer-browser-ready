@@ -10,8 +10,6 @@ _Simple utility to go to a URL and wait for the HTTP response_
 **puppeteer-browser-ready** is a helper utility to reduce the amount of boilerplate code needed
 to tell Puppeteer to visit a web page and and retrieve the HTML.&nbsp;
 It's primarily intended for use within [Mocha](https://mochajs.org) test cases.&nbsp;
-In addition to the raw HTML, you get a [cheerio](https://cheerio.js.org) reference so you can
-immediately run queries on the DOM.
 In addition to the raw HTML, you get a [node-html-parsed](https://github.com/taoqf/node-html-parser)
 root so you can immediately run queries on the DOM.
 
@@ -37,11 +35,10 @@ before(async () => web = await puppeteer.launch().then(browserReady.goto(url));
 after(async () =>  await browserReady.close(web));
 ```
 ### `goto()` Options
-| Name (key)   | Type        | Default | Description                                              |
-| :----------- | :---------- | :------ | :------------------------------------------------------- |
-| `addCheerio` | **boolean** | `false` | Return a cheerio reference for querying the DOM.         |
-| `parseHtml`  | **boolean** | `true` | Return the DOM root as an HTMLElement (node-html-parsed). |
-| `verbose`    | **boolean** | `false` | Output HTTP connection debug messages.                   |
+| Name (key)   | Type        | Default | Description                                               |
+| :----------- | :---------- | :------ | :-------------------------------------------------------- |
+| `parseHtml`  | **boolean** | `true`  | Return the DOM root as an HTMLElement (node-html-parsed). |
+| `verbose`    | **boolean** | `false` | Output HTTP connection debug messages.                    |
 
 ### `startWebServer()` Options
 | Name (key)    | Type        | Default| Description                                      |
@@ -65,7 +62,6 @@ type Web = {
    location: Location,
    title:    string,
    html:     string,
-   $:        cheerio.Root | null,  //library for parsing and manipulating HTML
    root:     HTMLElement | null,  //see node-html-parsed library
    };
 ```
