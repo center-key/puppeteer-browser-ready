@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.2.2 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.2.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import cheerio from 'cheerio';
@@ -43,9 +43,9 @@ const browserReady = {
         return http.terminator.terminate();
     },
     goto(url, options) {
-        const defaults = { addCheerio: true, parseHtml: true, verbose: false };
+        const defaults = { addCheerio: false, parseHtml: true, verbose: false };
         const settings = { ...defaults, ...options };
-        if (options?.addCheerio)
+        if (settings.addCheerio)
             console.log('puppeteer-browser-ready: Option "addCheerio" is deprecated, use "parseHtml" instead.');
         const log = (label, msg) => settings.verbose &&
             console.log('   ', Date.now() % 100000, label + ':', msg);
