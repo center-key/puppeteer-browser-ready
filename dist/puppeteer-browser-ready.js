@@ -1,5 +1,6 @@
-//! puppeteer-browser-ready v1.2.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.2.2 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
+import { parse } from 'node-html-parser';
 import cheerio from 'cheerio';
 import express from 'express';
 import httpTerminator from 'http-terminator';
@@ -42,10 +43,13 @@ const browserReady = {
         return http.terminator.terminate();
     },
     goto(url, options) {
-        const defaults = { addCheerio: true, verbose: false };
+        const defaults = { addCheerio: true, parseHtml: true, verbose: false };
         const settings = { ...defaults, ...options };
+        if (options?.addCheerio)
+            console.log('puppeteer-browser-ready: Option "addCheerio" is deprecated, use "parseHtml" instead.');
         const log = (label, msg) => settings.verbose &&
             console.log('   ', Date.now() % 100000, label + ':', msg);
+        const rootInfo = (root) => root.constructor.name + '/' + root.firstChild.toString();
         const web = async (browser) => {
             log('Connected', browser.isConnected());
             try {
@@ -61,9 +65,10 @@ const browserReady = {
                 log('Title', title);
                 const html = response && await response.text();
                 log('Bytes', html?.length);
-                const $ = html && settings.addCheerio ? cheerio.load(html) : null;
-                log('$', $ && $['fn'].constructor.name);
-                return { browser, page, response, status, location, title, html, $ };
+                const $ = html && settings.addCheerio ? cheerio.load(html) : null; //deprecated
+                const root = html && settings.parseHtml ? parse(html) : null;
+                log('DOM root', root ? rootInfo(root) : null);
+                return { browser, page, response, status, location, title, html, $, root };
             }
             catch (error) {
                 const status = browser.isConnected() ? 'connected' : 'not connected';
