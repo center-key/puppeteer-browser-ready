@@ -1,6 +1,5 @@
-//! puppeteer-browser-ready v1.2.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
-/// <reference types="cheerio" />
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { HTMLElement } from 'node-html-parser';
 import { Server } from 'http';
@@ -29,11 +28,9 @@ export type Web = {
     location: Location;
     title: string | null;
     html: string | null;
-    $: cheerio.Root | null;
     root: HTMLElement | null;
 };
 export type BrowserReadySettings = {
-    addCheerio: boolean;
     parseHtml: boolean;
     verbose: boolean;
 };

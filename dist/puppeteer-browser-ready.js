@@ -1,7 +1,6 @@
-//! puppeteer-browser-ready v1.2.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
-import cheerio from 'cheerio';
 import express from 'express';
 import httpTerminator from 'http-terminator';
 // Package
@@ -43,10 +42,8 @@ const browserReady = {
         return http.terminator.terminate();
     },
     goto(url, options) {
-        const defaults = { addCheerio: false, parseHtml: true, verbose: false };
+        const defaults = { parseHtml: true, verbose: false };
         const settings = { ...defaults, ...options };
-        if (settings.addCheerio)
-            console.log('puppeteer-browser-ready: Option "addCheerio" is deprecated, use "parseHtml" instead.');
         const log = (label, msg) => settings.verbose &&
             console.log('   ', Date.now() % 100000, label + ':', msg);
         const rootInfo = (root) => root.constructor.name + '/' + root.firstChild.toString();
@@ -65,10 +62,9 @@ const browserReady = {
                 log('Title', title);
                 const html = response && await response.text();
                 log('Bytes', html?.length);
-                const $ = html && settings.addCheerio ? cheerio.load(html) : null; //deprecated
                 const root = html && settings.parseHtml ? parse(html) : null;
                 log('DOM root', root ? rootInfo(root) : null);
-                return { browser, page, response, status, location, title, html, $, root };
+                return { browser, page, response, status, location, title, html, root };
             }
             catch (error) {
                 const status = browser.isConnected() ? 'connected' : 'not connected';
