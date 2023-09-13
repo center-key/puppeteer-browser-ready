@@ -91,7 +91,7 @@ const handleResponse = (web) => {
    console.log('Hello, World!');
    console.log('web fields:', Object.keys(web).join(', '));
    console.log(`The HTML from ${web.location.href} is ${web.html.length} characters`,
-      `long and contains ${web.$('p').length} <p> tags.`);
+      `long and contains ${web.root.querySelectorAll('p').length} <p> tags.`);
    return web;
    };
 puppeteer.launch()
@@ -102,7 +102,7 @@ puppeteer.launch()
 **Output:**
 ```
 Hello, World!
-web fields: browser, page, response, title, html, $
+web fields: browser, page, response, status, location, title, html, root
 The HTML from https://pretty-print-json.js.org/ is 8200 characters
 long and contains 7 <p> tags.
 ```
@@ -137,7 +137,7 @@ describe('The web page', () => {
       });
 
    it('has exactly one header, main, and footer', () => {
-      const actual =   web.$('body >*').toArray().map(elem => elem.name);
+      const actual =   getTags('body >*');
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });

@@ -84,9 +84,9 @@ const browserReady = {
       return http.terminator.terminate();
       },
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
-      const defaults = { addCheerio: true, parseHtml: true, verbose: false };
+      const defaults = { addCheerio: false, parseHtml: true, verbose: false };
       const settings = { ...defaults, ...options };
-      if (options?.addCheerio)
+      if (settings.addCheerio)
          console.log('puppeteer-browser-ready: Option "addCheerio" is deprecated, use "parseHtml" instead.');
       const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
          console.log('   ', Date.now() % 100000, label + ':', msg);

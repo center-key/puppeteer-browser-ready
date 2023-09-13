@@ -38,7 +38,7 @@ describe('The sample web page', () => {
 
    it('has a body with exactly one header, main, and footer -- node-html-parsed', () => {
       const getTags = (selector) =>
-         [...web.root.querySelectorAll(selector)].map(node => node.tagName.toLowerCase());
+         [...web.root.querySelectorAll(selector)].map(elem => elem.tagName.toLowerCase());
       const actual =   getTags('body >*');
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);

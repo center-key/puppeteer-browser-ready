@@ -18,7 +18,7 @@ const handleResponse = (web) => {
    console.log('Hello, World!');
    console.log('web fields:', Object.keys(web).join(', '));
    console.log(`The HTML from ${web.location.href} is ${web.html.length} characters`,
-      `long and contains ${web.$('p').length} <p> tags.`);
+      `long and contains ${web.root.querySelectorAll('p').length} <p> tags.`);
    return web;
    };
 puppeteer.launch()
