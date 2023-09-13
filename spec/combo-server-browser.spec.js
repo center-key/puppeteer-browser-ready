@@ -14,7 +14,7 @@ describe('Combo Server/Browser specification suite', () => {
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
    let http;  //fields: server, terminator, folder, url, port, verbose
-   let web;   //fields: browser, page, response, status, location, title, html, $
+   let web;   //fields: browser, page, response, status, location, title, html, root
    before(async () => {
       http = await browserReady.startWebServer(options);
       web =  await puppeteer.launch().then(browserReady.goto(http.url + webPath, { verbose: true }));
@@ -42,11 +42,20 @@ describe('The sample web page', () => {
       assertDeepStrictEqual(actual, expected);
       });
 
+   it('has a body with exactly one header, main, and footer -- node-html-parsed', () => {
+      const getTags = (selector) =>
+         [...web.root.querySelectorAll(selector)].map(node => node.tagName.toLowerCase());
+      const actual =   getTags('body >*');
+      const expected = ['header', 'main', 'footer'];
+      assertDeepStrictEqual(actual, expected);
+      });
+
    it('has a body with exactly one header, main, and footer -- page.evaluate()', async () => {
-      const actual = await web.page.evaluate(() => {
-         const elems = globalThis.document.querySelectorAll('body >*');
-         return [...elems].map(elem => elem.nodeName.toLowerCase());
-         });
+      const getTags = async (selector) =>
+         await web.page.evaluate((selector) =>
+            [...globalThis.document.querySelectorAll(selector)].map(elem =>
+               elem.nodeName.toLowerCase()), selector);
+      const actual =   await getTags('body >*');
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });

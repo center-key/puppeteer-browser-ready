@@ -7,7 +7,7 @@
 //    $ npm install
 //    $ node index.js
 //    Hello, World!
-//    web fields: browser, page, response, status, location, title, html, $
+//    web fields: browser, page, response, status, location, title, html, root
 //    The HTML from https://pretty-print-json.js.org/ is 8200 characters
 //    long and contains 7 <p> tags.
 

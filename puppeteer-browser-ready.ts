@@ -3,6 +3,7 @@
 // Imports
 import { AddressInfo } from 'net';
 import { Browser, HTTPResponse, Page } from 'puppeteer';
+import { HTMLElement, parse } from 'node-html-parser';
 import { Server } from 'http';
 import { SuiteFunction } from 'mocha';
 import cheerio        from 'cheerio';
@@ -34,9 +35,11 @@ export type Web = {
    title:    string | null,
    html:     string | null,
    $:        cheerio.Root | null,
+   root:     HTMLElement | null,
    };
 export type BrowserReadySettings = {
    addCheerio: boolean,  //return a cheerio reference for querying the DOM
+   parseHtml:  boolean,  //return the DOM root as an HTMLElement (node-html-parsed)
    verbose:    boolean,  //output HTTP connection debug messages
    };
 export type BrowserReadyOptions = Partial<BrowserReadySettings>;
@@ -81,10 +84,11 @@ const browserReady = {
       return http.terminator.terminate();
       },
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
-      const defaults = { addCheerio: true, verbose: false };
+      const defaults = { addCheerio: true, parseHtml: true, verbose: false };
       const settings = { ...defaults, ...options };
       const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
          console.log('   ', Date.now() % 100000, label + ':', msg);
+      const rootInfo = (root: HTMLElement) => root.constructor.name + '/' + root.firstChild.toString();
       const web = async (browser: Browser): Promise<Web> => {
          log('Connected', browser.isConnected());
          try {
@@ -95,7 +99,8 @@ const browserReady = {
             const title =    response && await page.title();                           log('Title',    title);
             const html =     response && await response.text();                        log('Bytes',    html?.length);
             const $ =        html && settings.addCheerio ? cheerio.load(html) : null;  log('$',        $ && $[<keyof typeof $>'fn'].constructor.name);
-            return { browser, page, response, status, location, title, html, $ };
+            const root =     html && settings.parseHtml ? parse(html) : null;          log('DOM Root', root ? rootInfo(root) : null);
+            return { browser, page, response, status, location, title, html, $, root };
             }
          catch (error) {
             const status = browser.isConnected() ? 'connected' : 'not connected';
