@@ -32,20 +32,16 @@ describe('The sample web page', () => {
       assertDeepStrictEqual(actual, expected);
       });
 
-   it('has a body with exactly one header, main, and footer -- node-html-parsed', () => {
-      const getTags = (selector) =>
-         [...web.root.querySelectorAll(selector)].map(elem => elem.tagName.toLowerCase());
-      const actual =   getTags('body >*');
+   it('body has exactly one header, main, and footer -- node-html-parsed', () => {
+      const getTags =  (elems) => [...elems].map(elem => elem.tagName.toLowerCase());
+      const actual =   getTags(web.root.querySelectorAll('body >*'));
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });
 
-   it('has a body with exactly one header, main, and footer -- page.evaluate()', async () => {
-      const getTags = async (selector) =>
-         await web.page.evaluate((selector) =>
-            [...globalThis.document.querySelectorAll(selector)].map(elem =>
-               elem.nodeName.toLowerCase()), selector);
-      const actual =   await getTags('body >*');
+   it('body has exactly one header, main, and footer -- page.$$eval()', async () => {
+      const getTags =  (elems) => elems.map(elem => elem.nodeName.toLowerCase());
+      const actual =   await web.page.$$eval('body >*', getTags);
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });

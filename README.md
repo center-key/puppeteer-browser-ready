@@ -130,14 +130,28 @@ describe('The web page', () => {
    before(loadWebPage);
    after(closeWebPage);
 
-   it('has the correct URL -> ' + url, () => {
+   it('has the correct URL', () => {
       const actual =   { status: web.status, url: web.location.href };
       const expected = { status: 200,        url: url };
       assertDeepStrictEqual(actual, expected);
       });
 
-   it('has exactly one header, main, and footer', () => {
-      const actual =   getTags('body >*');
+   it('title starts with "Pretty-Print JSON"', () => {
+      const actual =   { title: web.title.substring(0, 17) };
+      const expected = { title: 'Pretty-Print JSON' };
+      assertDeepStrictEqual(actual, expected);
+      });
+
+   it('body has exactly one header, main, and footer -- node-html-parsed', () => {
+      const getTags =  (elems) => [...elems].map(elem => elem.tagName.toLowerCase());
+      const actual =   getTags(web.root.querySelectorAll('body >*'));
+      const expected = ['header', 'main', 'footer'];
+      assertDeepStrictEqual(actual, expected);
+      });
+
+   it('body has exactly one header, main, and footer -- page.$$eval()', async () => {
+      const getTags =  (elems) => elems.map(elem => elem.nodeName.toLowerCase());
+      const actual =   await web.page.$$eval('body >*', getTags);
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });
@@ -160,8 +174,10 @@ describe('The document content', () => {
 **Output:**
 ```
   The web page
-    ✓ has the correct URL -> https://pretty-print-json.js.org/
-    ✓ has exactly one header, main, and footer
+    ✓ has the correct URL
+    ✓ title starts with "Pretty-Print JSON"
+    ✓ body has exactly one header, main, and footer -- node-html-parsed
+    ✓ body has exactly one header, main, and footer -- page.$$eval()
 
   The document content
     ✓ has a 🚀 traveling to 🪐!
@@ -218,7 +234,7 @@ Example configuration in **package.json** to allow 5,000 ms:
 <br>
 
 ---
-**CLI Build Tools**
+**CLI Build Tools for package.json**
    - 🎋 [add-dist-header](https://github.com/center-key/add-dist-header):&nbsp; _Prepend a one-line banner comment (with license notice) to distribution files_
    - 📄 [copy-file-util](https://github.com/center-key/copy-file-util):&nbsp; _Copy or rename a file with optional package version number_
    - 📂 [copy-folder-util](https://github.com/center-key/copy-folder-util):&nbsp; _Recursively copy files from one folder to another folder_

@@ -18,32 +18,28 @@ describe('The web page', () => {
    before(loadWebPage);
    after(closeWebPage);
 
-   it('has the correct URL -> ' + url, () => {
+   it('has the correct URL', () => {
       const actual =   { status: web.status, url: web.location.href };
       const expected = { status: 200,        url: url };
       assertDeepStrictEqual(actual, expected);
       });
 
    it('title starts with "Pretty-Print JSON"', () => {
-      const actual =   { title: web.title.substring(0, 'Pretty-Print JSON'.length) };
+      const actual =   { title: web.title.substring(0, 17) };
       const expected = { title: 'Pretty-Print JSON' };
       assertDeepStrictEqual(actual, expected);
       });
 
-   it('has a body with exactly one header, main, and footer -- node-html-parsed', () => {
-      const getTags = (selector) =>
-         [...web.root.querySelectorAll(selector)].map(elem => elem.tagName.toLowerCase());
-      const actual =   getTags('body >*');
+   it('body has exactly one header, main, and footer -- node-html-parsed', () => {
+      const getTags =  (elems) => [...elems].map(elem => elem.tagName.toLowerCase());
+      const actual =   getTags(web.root.querySelectorAll('body >*'));
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });
 
-   it('has a body with exactly one header, main, and footer -- page.evaluate()', async () => {
-      const getTags = async (selector) =>
-         await web.page.evaluate((selector) =>
-            [...globalThis.document.querySelectorAll(selector)].map(elem =>
-               elem.nodeName.toLowerCase()), selector);
-      const actual =   await getTags('body >*');
+   it('body has exactly one header, main, and footer -- page.$$eval()', async () => {
+      const getTags =  (elems) => elems.map(elem => elem.nodeName.toLowerCase());
+      const actual =   await web.page.$$eval('body >*', getTags);
       const expected = ['header', 'main', 'footer'];
       assertDeepStrictEqual(actual, expected);
       });
