@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.3.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
@@ -46,7 +46,7 @@ const browserReady = {
         const settings = { ...defaults, ...options };
         const log = (label, msg) => settings.verbose &&
             console.log('   ', Date.now() % 100000, label + ':', msg);
-        const rootInfo = (root) => root.constructor.name + '/' + root.firstChild.toString();
+        const rootInfo = (root) => root.constructor.name + '/' + root.firstChild?.toString();
         const web = async (browser) => {
             log('Connected', browser.isConnected());
             try {
