@@ -5,7 +5,8 @@
    "license": "MIT",
    "private": true,
    "type": "module",
-   "main": "index.js",
+   "module": "index.js",
+   "exports": "./index.js",
    "jshintConfig": {
       "esversion": 11
    },
@@ -15,7 +16,7 @@
    },
    "dependencies": {
       "jshint": "~2.13",
-      "puppeteer": "~21.6",
+      "puppeteer": "~21.9",
       "puppeteer-browser-ready": "~1.3"
    }
 }
