@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.3.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.2 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { HTMLElement } from 'node-html-parser';
