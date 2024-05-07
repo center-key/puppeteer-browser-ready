@@ -79,32 +79,32 @@
       "test": "mocha spec/*.spec.js --timeout 7000 --retries 1"
    },
    "peerDependencies": {
-      "puppeteer": "^15 || ^16 || ^17 || ^18 || ^19.7 || ^20 || ^21 || ^22"
+      "puppeteer": "^15 || ^16 || ^17 || ^18 || ^19.7 || ^20 || ^21 || ^22.8"
    },
    "dependencies": {
-      "express": "~4.18",
+      "express": "~4.19",
       "http-terminator": "~3.2",
       "node-html-parser": "~6.1"
    },
    "devDependencies": {
       "@types/express": "~4.17",
       "@types/mocha": "~10.0",
-      "@types/node": "~20.11",
+      "@types/node": "~20.12",
       "@types/ws": "~8.5",
-      "@typescript-eslint/eslint-plugin": "~6.21",
-      "@typescript-eslint/parser": "~6.21",
+      "@typescript-eslint/eslint-plugin": "~7.8",
+      "@typescript-eslint/parser": "~7.8",
       "add-dist-header": "~1.4",
       "assert-deep-strict-equal": "~1.2",
-      "copy-file-util": "~1.1",
+      "copy-file-util": "~1.2",
       "copy-folder-util": "~1.1",
-      "eslint": "~8.56",
+      "eslint": "8.57.0",
       "jshint": "~2.13",
-      "mocha": "~10.2",
-      "open": "~10.0",
-      "puppeteer": "~22.0",
+      "mocha": "~10.4",
+      "open": "~10.1",
+      "puppeteer": "~22.8",
       "rimraf": "~5.0",
       "run-scripts-util": "~1.2",
-      "typescript": "~5.3",
-      "w3c-html-validator": "~1.6"
+      "typescript": "~5.4",
+      "w3c-html-validator": "~1.8"
    }
 }
