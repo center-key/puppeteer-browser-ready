@@ -5,7 +5,7 @@ _Simple utility to go to a URL and wait for the HTTP response_
 
 [![License:MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/center-key/puppeteer-browser-ready/blob/main/LICENSE.txt)
 [![npm](https://img.shields.io/npm/v/puppeteer-browser-ready.svg)](https://www.npmjs.com/package/puppeteer-browser-ready)
-[![Build](https://github.com/center-key/puppeteer-browser-ready/workflows/build/badge.svg)](https://github.com/center-key/puppeteer-browser-ready/actions/workflows/run-spec-on-push.yaml)
+[![Build](https://github.com/center-key/puppeteer-browser-ready/actions/workflows/run-spec-on-push.yaml/badge.svg)](https://github.com/center-key/puppeteer-browser-ready/actions/workflows/run-spec-on-push.yaml)
 
 **puppeteer-browser-ready** is a helper utility to reduce the amount of boilerplate code needed
 to tell Puppeteer to visit a web page and and retrieve the HTML.&nbsp;
