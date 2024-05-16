@@ -5,14 +5,14 @@
    "license": "MIT",
    "private": true,
    "type": "module",
-   "module": "index.js",
-   "exports": "./index.js",
+   "module": "server.js",
+   "exports": "./server.js",
    "jshintConfig": {
       "esversion": 11
    },
    "scripts": {
       "test": "jshint . --exclude-path .gitignore",
-      "start": "node index"
+      "start": "node server"
    },
    "dependencies": {
       "jshint": "~2.13",

@@ -5,7 +5,7 @@
 //    $ cd puppeteer-browser-ready
 //    $ cd hello-world
 //    $ npm install
-//    $ node index.js
+//    $ node server.js
 //    Hello, World!
 //    web fields: browser, page, response, status, location, title, html, root
 //    The HTML from https://pretty-print-json.js.org/ is 8200 characters
