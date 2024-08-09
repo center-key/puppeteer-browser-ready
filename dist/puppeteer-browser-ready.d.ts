@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.3.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { HTMLElement } from 'node-html-parser';
@@ -43,6 +43,6 @@ declare const browserReady: {
     startWebServer(options?: StartWebServerOptions): Promise<Http>;
     shutdownWebServer(http: Http): Promise<void>;
     goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web>;
-    close(web: Web): Promise<Web>;
+    close(web: Web | null): Promise<Web | null>;
 };
 export { browserReady };
