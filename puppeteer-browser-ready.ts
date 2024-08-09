@@ -85,7 +85,8 @@ const browserReady = {
       const settings = { ...defaults, ...options };
       const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
          console.log('   ', Date.now() % 100000, label + ':', msg);
-      const rootInfo = (root: HTMLElement) => root.constructor.name + '/' + root.firstChild?.toString();
+      const rootInfo = (root: HTMLElement) =>
+         `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
       const web = async (browser: Browser): Promise<Web> => {
          log('Connected', browser.isConnected());
          try {
@@ -107,8 +108,8 @@ const browserReady = {
          };
       return web;
       },
-   async close(web: Web): Promise<Web> {
-      if (web && web.browser)
+   async close(web: Web | null): Promise<Web | null> {
+      if (web?.browser)
          await web.browser.close();
       return web;
       },
