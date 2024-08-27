@@ -10,11 +10,13 @@ export default [
    {
       languageOptions: { parserOptions: { projectService: true } },
       rules: {
-         '@typescript-eslint/no-confusing-void-expression':  'off',  //prefer clean arrow functions
-         '@typescript-eslint/no-floating-promises':          'off',  //annimations may be fire-and-forget
-         '@typescript-eslint/no-non-null-assertion':         'off',  //ts cannot always discern if value exists
-         '@typescript-eslint/restrict-template-expressions': 'off',  //numbers in templates are natural
-         '@typescript-eslint/unbound-method':                'off',  //do not use 'this'
+         '@typescript-eslint/no-confusing-void-expression':           'off',  //prefer minimal arrow functions
+         '@typescript-eslint/no-floating-promises':                   'off',  //annimations may be fire-and-forget
+         '@typescript-eslint/no-misused-promises':                    'off',  //annimations may be fire-and-forget
+         '@typescript-eslint/no-non-null-assertion':                  'off',  //ts cannot always know value exists
+         '@typescript-eslint/restrict-template-expressions':          'off',  //numbers in templates are natural
+         '@typescript-eslint/unbound-method':                         'off',  //safer to not use 'this'
+         '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',  //clarity over theoretical exceptions
          },
       },
    ];

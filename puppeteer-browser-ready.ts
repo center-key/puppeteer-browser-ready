@@ -88,7 +88,7 @@ const browserReady = {
       const rootInfo = (root: HTMLElement) =>
          `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
       const web = async (browser: Browser): Promise<Web> => {
-         log('Connected', browser.isConnected());
+         log('Connected', browser.connected);
          try {
             const page =     await browser.newPage();                                  log('Page....', url);
             const response = await page.goto(url);                                     log('Response', response?.url());
@@ -100,7 +100,7 @@ const browserReady = {
             return { browser, page, response, status, location, title, html, root };
             }
          catch (error) {
-            const status = browser.isConnected() ? 'connected' : 'not connected';
+            const status = browser.connected ? 'connected' : 'not connected';
             console.log('[puppeteer-browser-ready]', settings, status);
             console.log(error);
             throw error;
