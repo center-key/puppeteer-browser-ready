@@ -50,7 +50,7 @@ after(async () =>  await browserReady.close(web));
 
 ## C) TypeScript Declarations
 See the TypeScript declarations at the top of the
-[puppeteer-browser-ready.ts](puppeteer-browser-ready.ts) file.
+[puppeteer-browser-ready.ts](src/puppeteer-browser-ready.ts) file.
 
 The `browserReady.goto(url, options)` function returns a function that takes a Puppeteer **Browser**
 object and returns a **Promise** that resolves with a **Web** object:
