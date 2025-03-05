@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.3.7 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.8 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
