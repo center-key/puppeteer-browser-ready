@@ -68,7 +68,7 @@
       "node-html-parser": "~7.0"
    },
    "devDependencies": {
-      "@eslint/js": "~9.28",
+      "@eslint/js": "~9.29",
       "@types/express": "~5.0",
       "@types/mocha": "~10.0",
       "@types/node": "~24.0",
@@ -77,7 +77,7 @@
       "assert-deep-strict-equal": "~1.2",
       "copy-file-util": "~1.2",
       "copy-folder-util": "~1.1",
-      "eslint": "~9.28",
+      "eslint": "~9.29",
       "jshint": "~2.13",
       "mocha": "~11.6",
       "open": "~10.1",

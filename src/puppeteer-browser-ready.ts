@@ -40,7 +40,7 @@ export type BrowserReadySettings = {
    verbose:    boolean,  //output HTTP connection debug messages
    };
 export type BrowserReadyOptions = Partial<BrowserReadySettings>;
-declare global { var describe: SuiteFunction }  //eslint-disable-line no-var
+declare global { var describe: SuiteFunction }
 
 // Package
 const browserReady = {
