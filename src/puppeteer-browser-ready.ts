@@ -46,7 +46,7 @@ declare global { var describe: SuiteFunction }
 const browserReady = {
    log(...args: unknown[]): void {
       const indent = typeof globalThis.describe === 'function' ? '  [' : '[';
-      console.log(indent + new Date().toISOString() + ']', ...args);
+      console.info(indent + new Date().toISOString() + ']', ...args);
       },
    startWebServer(options?: StartWebServerOptions): Promise<Http> {
       const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
@@ -70,7 +70,7 @@ const browserReady = {
       if (settings.verbose)
          server.on('listening', logListening).on('close', logClose);
       const cleanup = () => {
-         console.log('[SIGINT]');
+         console.info('[SIGINT]');
          terminator.terminate();
          };
       if (settings.autoCleanup)
@@ -84,7 +84,7 @@ const browserReady = {
       const defaults = { parseHtml: true, verbose: false };
       const settings = { ...defaults, ...options };
       const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
-         console.log('   ', Date.now() % 100000, label + ':', msg);
+         console.info('   ', Date.now() % 100000, label + ':', msg);
       const rootInfo = (root: HTMLElement) =>
          `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
       const web = async (browser: Browser): Promise<Web> => {
@@ -101,8 +101,8 @@ const browserReady = {
             }
          catch (error) {
             const status = browser.connected ? 'connected' : 'not connected';
-            console.log('[puppeteer-browser-ready]', settings, status);
-            console.log(error);
+            console.info('[puppeteer-browser-ready]', settings, status);
+            console.info(error);
             throw error;
             }
          };

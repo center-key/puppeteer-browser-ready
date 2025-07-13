@@ -18,6 +18,6 @@ const webServerOptions = {
 const path = 'spec/fixtures/sample.html';
 
 // Start
-console.log('Opening web page at:', path);
+console.info('Opening web page at:', path);
 browserReady.startWebServer(webServerOptions)
    .then(http => open(http.url + path));
