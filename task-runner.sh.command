@@ -10,6 +10,13 @@
 banner="puppeteer-browser-ready"
 projectHome=$(cd $(dirname $0); pwd)
 
+clearExtraneousFinderOptions() {
+   # Remove useless "Google Chrome for Testing" options in "Open With"
+   cd $projectHome
+   rm -rf node_modules/puppeteer
+   rm -rf ~/.cache/puppeteer
+   }
+
 setupTools() {
    # Check for Node.js installation and download project dependencies
    cd $projectHome
@@ -98,6 +105,7 @@ helloWorld() {
    echo
    }
 
+#clearExtraneousFinderOptions
 setupTools
 releaseInstructions
 runSpec

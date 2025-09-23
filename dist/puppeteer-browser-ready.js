@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.3.8 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.3.9 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
@@ -7,7 +7,7 @@ import httpTerminator from 'http-terminator';
 const browserReady = {
     log(...args) {
         const indent = typeof globalThis.describe === 'function' ? '  [' : '[';
-        console.log(indent + new Date().toISOString() + ']', ...args);
+        console.info(indent + new Date().toISOString() + ']', ...args);
     },
     startWebServer(options) {
         const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
@@ -31,7 +31,7 @@ const browserReady = {
         if (settings.verbose)
             server.on('listening', logListening).on('close', logClose);
         const cleanup = () => {
-            console.log('[SIGINT]');
+            console.info('[SIGINT]');
             terminator.terminate();
         };
         if (settings.autoCleanup)
@@ -45,7 +45,7 @@ const browserReady = {
         const defaults = { parseHtml: true, verbose: false };
         const settings = { ...defaults, ...options };
         const log = (label, msg) => settings.verbose &&
-            console.log('   ', Date.now() % 100000, label + ':', msg);
+            console.info('   ', Date.now() % 100000, label + ':', msg);
         const rootInfo = (root) => `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
         const web = async (browser) => {
             log('Connected', browser.connected);
@@ -68,8 +68,8 @@ const browserReady = {
             }
             catch (error) {
                 const status = browser.connected ? 'connected' : 'not connected';
-                console.log('[puppeteer-browser-ready]', settings, status);
-                console.log(error);
+                console.info('[puppeteer-browser-ready]', settings, status);
+                console.info(error);
                 throw error;
             }
         };

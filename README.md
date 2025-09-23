@@ -223,11 +223,11 @@ By default Mocha allows a test 2,000 ms to complete before timing out with a fai
 Web page load times can vary significantly, so it's sometimes a good idea to use the `timeout`
 option to bump up the allowed test execution time.
 
-Example configuration in **package.json** to allow 5,000 ms:
+Example configuration in **package.json** to allow 7,000 ms:
 ```json
    "scripts": {
       "pretest": "run-scripts clean build",
-      "test": "mocha spec/*.spec.js --timeout 7000"
+      "test": "mocha spec --timeout 7000"
    },
 ```
 
