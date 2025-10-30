@@ -88,15 +88,14 @@ const browserReady = {
       const rootInfo = (root: HTMLElement) =>
          `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
       const web = async (browser: Browser): Promise<Web> => {
-         try {
-            output('[1/8] Connected', browser.connected);
-            const page =     await browser.newPage();                          output('[2/8] Page',     url);
-            const response = await page.goto(url);                             output('[3/8] Response', response?.url());
-            const status =   response && response.status();                    output('[4/8] Status',   status);
-            const location = await page.evaluate(() => globalThis.location);   output('[5/8] Host',     location.host);
-            const title =    response && await page.title();                   output('[6/8] Title',    title);
-            const html =     response && await response.text();                output('[7/8] Bytes',    html?.length);
-            const root =     html && settings.parseHtml ? parse(html) : null;  output('[8/8] DOM root', root ? rootInfo(root) : null);
+         try {                                                                 output('[1/8] Connected', browser.connected);
+            const page =     await browser.newPage();                          output('[2/8] Page',      url);
+            const response = await page.goto(url);                             output('[3/8] Response',  response?.url());
+            const status =   response && response.status();                    output('[4/8] Status',    status);
+            const location = await page.evaluate(() => globalThis.location);   output('[5/8] Host',      location.host);
+            const title =    response && await page.title();                   output('[6/8] Title',     title);
+            const html =     response && await response.text();                output('[7/8] Bytes',     html?.length);
+            const root =     html && settings.parseHtml ? parse(html) : null;  output('[8/8] DOM root',  root ? rootInfo(root) : null);
             return { browser, page, response, status, location, title, html, root };
             }
          catch (error) {

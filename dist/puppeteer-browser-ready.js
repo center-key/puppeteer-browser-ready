@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.3.9 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.4.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
@@ -44,26 +44,26 @@ const browserReady = {
     goto(url, options) {
         const defaults = { parseHtml: true, verbose: false };
         const settings = { ...defaults, ...options };
-        const log = (label, msg) => settings.verbose &&
-            console.info('   ', Date.now() % 100000, label + ':', msg);
+        const output = (label, msg) => settings.verbose &&
+            console.info('   ', Date.now() % 100000, label + ':'.padEnd(16 - label.length, ' '), msg);
         const rootInfo = (root) => `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
         const web = async (browser) => {
-            log('Connected', browser.connected);
             try {
+                output('[1/8] Connected', browser.connected);
                 const page = await browser.newPage();
-                log('Page....', url);
+                output('[2/8] Page', url);
                 const response = await page.goto(url);
-                log('Response', response?.url());
+                output('[3/8] Response', response?.url());
                 const status = response && response.status();
-                log('Status', status);
+                output('[4/8] Status', status);
                 const location = await page.evaluate(() => globalThis.location);
-                log('Host', location.host);
+                output('[5/8] Host', location.host);
                 const title = response && await page.title();
-                log('Title', title);
+                output('[6/8] Title', title);
                 const html = response && await response.text();
-                log('Bytes', html?.length);
+                output('[7/8] Bytes', html?.length);
                 const root = html && settings.parseHtml ? parse(html) : null;
-                log('DOM root', root ? rootInfo(root) : null);
+                output('[8/8] DOM root', root ? rootInfo(root) : null);
                 return { browser, page, response, status, location, title, html, root };
             }
             catch (error) {
