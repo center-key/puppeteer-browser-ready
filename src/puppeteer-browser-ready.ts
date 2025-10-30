@@ -83,20 +83,20 @@ const browserReady = {
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
       const defaults = { parseHtml: true, verbose: false };
       const settings = { ...defaults, ...options };
-      const log = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
-         console.info('   ', Date.now() % 100000, label + ':', msg);
+      const output = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
+         console.info('   ', Date.now() % 100000, label + ':'.padEnd(16 - label.length, ' '), msg);
       const rootInfo = (root: HTMLElement) =>
          `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
       const web = async (browser: Browser): Promise<Web> => {
-         log('Connected', browser.connected);
          try {
-            const page =     await browser.newPage();                                  log('Page....', url);
-            const response = await page.goto(url);                                     log('Response', response?.url());
-            const status =   response && response.status();                            log('Status',   status);
-            const location = await page.evaluate(() => globalThis.location);           log('Host',     location.host);
-            const title =    response && await page.title();                           log('Title',    title);
-            const html =     response && await response.text();                        log('Bytes',    html?.length);
-            const root =     html && settings.parseHtml ? parse(html) : null;          log('DOM root', root ? rootInfo(root) : null);
+            output('[1/8] Connected', browser.connected);
+            const page =     await browser.newPage();                          output('[2/8] Page',     url);
+            const response = await page.goto(url);                             output('[3/8] Response', response?.url());
+            const status =   response && response.status();                    output('[4/8] Status',   status);
+            const location = await page.evaluate(() => globalThis.location);   output('[5/8] Host',     location.host);
+            const title =    response && await page.title();                   output('[6/8] Title',    title);
+            const html =     response && await response.text();                output('[7/8] Bytes',    html?.length);
+            const root =     html && settings.parseHtml ? parse(html) : null;  output('[8/8] DOM root', root ? rootInfo(root) : null);
             return { browser, page, response, status, location, title, html, root };
             }
          catch (error) {
