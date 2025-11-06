@@ -1,16 +1,25 @@
-//! puppeteer-browser-ready v1.4.0 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.4.1 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
 import httpTerminator from 'http-terminator';
 // Package
 const browserReady = {
+    assert(ok, message) {
+        if (!ok)
+            throw new Error(`[puppeteer-browser-ready] ${message}`);
+    },
     log(...args) {
         const indent = typeof globalThis.describe === 'function' ? '  [' : '[';
         console.info(indent + new Date().toISOString() + ']', ...args);
     },
     startWebServer(options) {
-        const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
+        const defaults = {
+            folder: '.',
+            port: 0,
+            verbose: true,
+            autoCleanup: true,
+        };
         const settings = { ...defaults, ...options };
         const server = express().use(express.static(settings.folder)).listen(settings.port);
         const terminator = httpTerminator.createHttpTerminator({ server });
@@ -42,7 +51,10 @@ const browserReady = {
         return http.terminator.terminate();
     },
     goto(url, options) {
-        const defaults = { parseHtml: true, verbose: false };
+        const defaults = {
+            parseHtml: true,
+            verbose: false,
+        };
         const settings = { ...defaults, ...options };
         const output = (label, msg) => settings.verbose &&
             console.info('   ', Date.now() % 100000, label + ':'.padEnd(16 - label.length, ' '), msg);
