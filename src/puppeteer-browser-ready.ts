@@ -44,14 +44,26 @@ declare global { var describe: SuiteFunction }
 
 // Package
 const browserReady = {
+
+   assert(ok: unknown, message: string | null) {
+      if (!ok)
+         throw new Error(`[puppeteer-browser-ready] ${message}`);
+      },
+
    log(...args: unknown[]): void {
       const indent = typeof globalThis.describe === 'function' ? '  [' : '[';
       console.info(indent + new Date().toISOString() + ']', ...args);
       },
+
    startWebServer(options?: StartWebServerOptions): Promise<Http> {
-      const defaults = { folder: '.', port: 0, verbose: true, autoCleanup: true };
-      const settings = { ...defaults, ...options };
-      const server =       express().use(express.static(settings.folder)).listen(settings.port);
+      const defaults: StartWebServerOptions = {
+         folder:      '.',
+         port:        0,
+         verbose:     true,
+         autoCleanup: true,
+         };
+      const settings =     { ...defaults, ...options };
+      const server =       express().use(express.static(settings.folder!)).listen(settings.port);
       const terminator =   httpTerminator.createHttpTerminator({ server });
       const port =         () => (<AddressInfo>server.address()).port;
       const url =          () => 'http://localhost:' + String(port()) + '/';
@@ -60,10 +72,10 @@ const browserReady = {
       const http = (): Http => ({
          server:     server,
          terminator: terminator,
-         folder:     settings.folder,
+         folder:     settings.folder!,
          url:        url(),
          port:       port(),
-         verbose:    settings.verbose,
+         verbose:    settings.verbose!,
          });
       let done: (http: Http) => void;
       server.on('listening', () => done(http()));
@@ -77,11 +89,16 @@ const browserReady = {
          process.on('SIGINT', cleanup);
       return new Promise(resolve => done = resolve);
       },
+
    shutdownWebServer(http: Http): Promise<void> {
       return http.terminator.terminate();
       },
+
    goto(url: string, options?: BrowserReadyOptions): (browser: Browser) => Promise<Web> {
-      const defaults = { parseHtml: true, verbose: false };
+      const defaults: BrowserReadyOptions = {
+         parseHtml: true,
+         verbose:   false,
+         };
       const settings = { ...defaults, ...options };
       const output = (label: string, msg?: string | number | boolean | null) => settings.verbose &&
          console.info('   ', Date.now() % 100000, label + ':'.padEnd(16 - label.length, ' '), msg);
@@ -107,11 +124,13 @@ const browserReady = {
          };
       return web;
       },
+
    async close(web: Web | null): Promise<Web | null> {
       if (web?.browser)
          await web.browser.close();
       return web;
       },
+
    };
 
 export { browserReady };
