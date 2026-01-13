@@ -8,8 +8,8 @@ import { browserReady } from '../dist/puppeteer-browser-ready.js';  //replace wi
 // Setup
 const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, status, location, title, html, root
-const loadWebPage =  async () => web = await puppeteer.launch().then(browserReady.goto(url));
-const closeWebPage = async () => await browserReady.close(web);
+const loadWebPage =  () => puppeteer.launch().then(browserReady.goto(url)).then(info => web = info);
+const closeWebPage = () => browserReady.close(web);
 
 describe('Load Web Page specification suite', () => {
 

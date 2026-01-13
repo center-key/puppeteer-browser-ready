@@ -31,8 +31,8 @@ Pass the **Web** object to the `browserReady.close(web)` function to disconnect 
 ```javascript
 const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, status, location, title, html, root
-before(async () => web = await puppeteer.launch().then(browserReady.goto(url));
-after(async () =>  await browserReady.close(web));
+before(() => puppeteer.launch().then(browserReady.goto(url)).then(info => web = info));
+after(() =>  browserReady.close(web));
 ```
 ### `goto()` Options
 | Name (key)   | Type        | Default | Description                                               |
@@ -120,10 +120,10 @@ import { browserReady } from 'puppeteer-browser-ready';
 // Setup
 const url = 'https://pretty-print-json.js.org/';
 let web;  //fields: browser, page, response, status, location, title, html, root
-const loadWebPage = async () =>
-   web = await puppeteer.launch().then(browserReady.goto(url));
-const closeWebPage = async () =>
-   await browserReady.close(web);
+const loadWebPage = () =>
+   puppeteer.launch().then(browserReady.goto(url)).then(info => web = info);
+const closeWebPage = () =>
+   browserReady.close(web);
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The web page', () => {
@@ -197,13 +197,13 @@ import { browserReady } from 'puppeteer-browser-ready';
 let http;  //fields: server, terminator, folder, url, port, verbose
 
 // Setup
-const mochaGlobalSetup = async () => {
-   http = await browserReady.startWebServer({ folder: 'docs', port: 7123 });
-   };
+const serverOptions = { folder: 'docs', port: 7123 };
+const mochaGlobalSetup = () =>
+   browserReady.startWebServer(serverOptions).then(info => http = info);
 
 // Teardown
-const mochaGlobalTeardown = async () => {
-   await browserReady.shutdownWebServer(http);
+const mochaGlobalTeardown = () => {
+   browserReady.shutdownWebServer(http);
    };
 
 export { mochaGlobalSetup, mochaGlobalTeardown };

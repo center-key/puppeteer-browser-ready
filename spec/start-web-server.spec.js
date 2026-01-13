@@ -11,14 +11,15 @@ const webPath = 'sample.html';
 
 describe('Start Web Server specification suite', () => {
    let http;  //fields: server, terminator, folder, url, port, verbose
-   before(async () => http = await browserReady.startWebServer(options));
-   after(async () =>  await browserReady.shutdownWebServer(http));
+   before(() => browserReady.startWebServer(options).then(info => http = info));
+   after(() => browserReady.shutdownWebServer(http));
 
 /////////////////////////////////////////////////////////////////////////////////////
 describe('The sample web page', () => {
    let web;  //fields: browser, page, response, status, location, title, html, root
-   before(async () => web = await puppeteer.launch().then(browserReady.goto(http.url + webPath)));
-   after(async () =>  await browserReady.close(web));
+   const gotoPage = () => browserReady.goto(http.url + webPath);
+   before(() => puppeteer.launch().then(gotoPage()).then(info => web = info));
+   after(() => browserReady.close(web));
 
    it('has the correct URL', () => {
       const actual =   { status: web.status, url: web.location.href };

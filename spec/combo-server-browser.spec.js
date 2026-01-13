@@ -15,14 +15,13 @@ describe('Combo Server/Browser specification suite', () => {
 describe('The sample web page', () => {
    let http;  //fields: server, terminator, folder, url, port, verbose
    let web;   //fields: browser, page, response, status, location, title, html, root
-   before(async () => {
-      http = await browserReady.startWebServer(options);
-      web =  await puppeteer.launch().then(browserReady.goto(http.url + webPath, { verbose: true }));
-      });
-   after(async () => {
-      await browserReady.close(web);
-      await browserReady.shutdownWebServer(http);
-      });
+   const gotoPage = () => browserReady.goto(http.url + webPath, { verbose: true });
+   before(() => browserReady.startWebServer(options)
+      .then(info => http = info)
+      .then(() => puppeteer.launch().then(gotoPage()))
+      .then(info => web = info)
+      );
+   after(() => browserReady.close(web).then(() => browserReady.shutdownWebServer(http)));
 
    it('has the correct URL', () => {
       const actual =   { status: web.status, url: web.location.href };
