@@ -1,9 +1,8 @@
-//! puppeteer-browser-ready v1.4.2 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.4.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
 import httpTerminator from 'http-terminator';
-// Package
 const browserReady = {
     assert(ok, message) {
         if (!ok)
