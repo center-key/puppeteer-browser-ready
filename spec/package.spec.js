@@ -34,7 +34,7 @@ describe('Library module', () => {
       const module = browserReady;
       const actual = Object.keys(module).sort().map(key => [key, typeof module[key]]);
       const expected = [
-         ['assert',            'function'],
+         ['assertOk',          'function'],
          ['close',             'function'],
          ['goto',              'function'],
          ['log',               'function'],
