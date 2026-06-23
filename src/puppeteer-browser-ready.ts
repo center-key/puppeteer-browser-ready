@@ -45,6 +45,8 @@ declare global { var describe: SuiteFunction }
 // Package
 const browserReady = {
 
+   version: '{{package.version}}',
+
    assertOk(ok: unknown, message: string | null) {
       if (!ok)
          throw new Error(`[puppeteer-browser-ready] ${message}`);
