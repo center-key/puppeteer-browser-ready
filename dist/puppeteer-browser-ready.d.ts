@@ -1,4 +1,4 @@
-//! puppeteer-browser-ready v1.4.3 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.4.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { Browser, HTTPResponse, Page } from 'puppeteer';
 import { HTMLElement } from 'node-html-parser';
@@ -39,7 +39,8 @@ declare global {
     var describe: SuiteFunction;
 }
 declare const browserReady: {
-    assert(ok: unknown, message: string | null): void;
+    version: string;
+    assertOk(ok: unknown, message: string | null): void;
     log(...args: unknown[]): void;
     startWebServer(options?: StartWebServerOptions): Promise<Http>;
     shutdownWebServer(http: Http): Promise<void>;
