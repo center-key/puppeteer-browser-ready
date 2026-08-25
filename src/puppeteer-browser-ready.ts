@@ -107,7 +107,8 @@ const browserReady = {
       const rootInfo = (root: HTMLElement) =>
          `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
       const web = async (browser: Browser): Promise<Web> => {
-         try {                                                                 output('[1/8] Connected', browser.connected);
+         try {
+            await new Promise(resolve => setTimeout(resolve, 200));            output('[1/8] Connected', browser.connected);
             const page =     await browser.newPage();                          output('[2/8] Page',      url);
             const response = await page.goto(url);                             output('[3/8] Response',  response?.url());
             const status =   response && response.status();                    output('[4/8] Status',    status);
