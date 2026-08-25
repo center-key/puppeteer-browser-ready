@@ -1,10 +1,10 @@
-//! puppeteer-browser-ready v1.4.4 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
+//! puppeteer-browser-ready v1.4.5 ~~ https://github.com/center-key/puppeteer-browser-ready ~~ MIT License
 
 import { parse } from 'node-html-parser';
 import express from 'express';
 import httpTerminator from 'http-terminator';
 const browserReady = {
-    version: '1.4.4',
+    version: '1.4.5',
     assertOk(ok, message) {
         if (!ok)
             throw new Error(`[puppeteer-browser-ready] ${message}`);
@@ -61,6 +61,7 @@ const browserReady = {
         const rootInfo = (root) => `${root.constructor.name}/${root.firstChild?.toString().trim()}`;
         const web = async (browser) => {
             try {
+                await new Promise(resolve => setTimeout(resolve, 200));
                 output('[1/8] Connected', browser.connected);
                 const page = await browser.newPage();
                 output('[2/8] Page', url);
