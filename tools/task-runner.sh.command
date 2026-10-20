@@ -5,10 +5,10 @@
 ###########################
 
 # To make this file runnable:
-#     $ chmod +x *.sh.command
+#     $ chmod +x tools/*.sh.command
 
 banner="puppeteer-browser-ready"
-projectHome=$(cd $(dirname $0); pwd)
+projectHome=$(realpath $0/../..)
 
 clearExtraneousFinderOptions() {
    # Remove useless "Google Chrome for Testing" options in "Open With"
@@ -23,6 +23,7 @@ setupTools() {
    echo
    echo $banner
    echo $(echo $banner | sed s/./=/g)
+   date
    pwd
    [ -d .git ] || { echo "Project must be in a git repository."; exit; }
    [ -d dist ] && git restore dist
