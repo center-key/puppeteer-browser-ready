@@ -77,15 +77,15 @@
       "assert-deep-strict-equal": "~1.2",
       "copy-file-util": "~1.3",
       "copy-folder-util": "~1.2",
-      "eslint": "~10.13",
+      "eslint": "~10.15",
       "jshint": "~2.13",
       "mocha": "~12.0",
       "open": "~11.0",
-      "puppeteer": "~25.14",
+      "puppeteer": "~25.18",
       "rimraf": "~6.1",
       "run-scripts-util": "~1.4",
       "typescript": "~6.0",
-      "typescript-eslint": "~8.72",
+      "typescript-eslint": "~8.73",
       "w3c-html-validator": "~2.2"
    }
 }

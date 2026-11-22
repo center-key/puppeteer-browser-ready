@@ -81,7 +81,7 @@ export type Http = {
 
 ## D) Examples
 
-### Example 1: Node.js program
+### Example 1: Node.js Program
 **Code:**
 ```javascript
 import puppeteer from 'puppeteer';
@@ -107,7 +107,7 @@ The HTML from https://pretty-print-json.js.org/ is 8200 characters
 long and contains 7 <p> tags.
 ```
 
-### Example 2: Mocha specification suite
+### Example 2: Mocha Specification Suite
 **Code:**
 ```javascript
 // Mocha Specification Suite
@@ -183,7 +183,7 @@ describe('The document content', () => {
     ✓ has a 🚀 traveling to 🪐!
 ```
 
-### Example 3: Start and shutdown a static web server
+### Example 3: Start and Shutdown Static Web Server
 The [startWebServer(options) and shutdownWebServer(http)](spec/start-web-server.spec.js) functions
 can be used in global fixtures to start and shutdown a static web server.
 
